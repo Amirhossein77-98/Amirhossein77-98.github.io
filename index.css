@@ -1,0 +1,120 @@
+:root {
+    --primary: #001323;
+    --secondary: #000700; 
+    --text: aliceblue;
+}
+
+body {
+    background: radial-gradient(var(--primary), var(--secondary));
+    color: var(--text);
+    font-family: 'Trebuchet MS';
+}
+
+/* Header Styles */
+
+#header {
+    display: flex; 
+    align-items: center;
+    height: 40px
+}
+
+/* Weather Button Styles */
+
+#weather-btn {
+    margin-right: 0px 20px;
+    border-radius: 100px;
+    background-color: #ffffff57;
+    color: var(--text);
+    border: none;
+    padding: 0px 0px 0px 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-weight: bold;
+    max-width: fit-content;
+}
+
+#weather-btn:hover {
+    background-color: #6b6b6b57;
+}
+
+/* Weather Button Elements Styles */
+
+#weather-btn img {
+    max-height: 40px;
+}
+
+#temp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: fit-content;
+}
+
+#weather-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Main Body Styles */
+
+#container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+/* Right side Styles */
+
+#welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    line-height: 10px;
+    padding-left: 20px;
+}
+
+#welcome p {
+    font-size: 22px;
+}
+
+/* Left Side Styles */
+
+#anim {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100vh;
+    text-align: end;
+    font-size: 100px;
+    font-weight: bolder;
+    padding-right: 50px;
+}
+
+@keyframes SlashTurn {
+    0% {
+        transform: rotate(0);
+    }
+
+    30% {
+        transform: rotate(70deg);
+    }
+
+    60% {
+        transform: rotate(290deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#slash {
+    display: block;
+    animation-name: SlashTurn;
+    transform-origin: center;
+    animation-duration: 1s;
+    animation-timing-function:linear;
+    animation-iteration-count: 1;
+}
+
