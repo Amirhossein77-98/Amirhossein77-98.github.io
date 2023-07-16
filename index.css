@@ -13,10 +13,13 @@ body {
 /* Header Styles */
 
 #header {
-    display: flex; 
-    align-items: center;
-    height: 40px
+    display: grid; 
+    grid-template-columns: 20% 80%;
+    height: 40px;
+    grid-auto-flow: column;
 }
+
+
 
 /* Weather Button Styles */
 
@@ -26,21 +29,45 @@ body {
     background-color: #ffffff57;
     color: var(--text);
     border: none;
-    padding: 0px 0px 0px 15px;
+    padding: 0px 15px 0px 15px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     font-weight: bold;
     max-width: fit-content;
+    font-family: 'Trebuchet MS';
+    font-size: 16px;
 }
 
 #weather-btn:hover {
     background-color: #6b6b6b57;
 }
 
-/* Weather Button Elements Styles */
+/* Time Elements Style */
+
+#time {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#time-weather-seperator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: large;
+    margin-right: -10px;
+}
+
+/* Weather Elements Styles */
 
 #weather-btn img {
     max-height: 40px;
+}
+
+#weather-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #temp {
@@ -50,10 +77,33 @@ body {
     max-width: fit-content;
 }
 
-#weather-icon {
+/* Navbar Section Styles */
+
+#navbar-sec {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-self: end;
+}
+
+/* Navbar buttons style */
+
+.nav-btn {
+    border-radius: 100px;
+    background-color: #00070000;
+    color: var(--text);
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    width: fit-content;
+    font-family: 'Trebuchet MS';
+    font-size: 18px;
+}
+
+.nav-btn:hover {
+    color: seagreen;
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 10px;
 }
 
 /* Main Body Styles */
@@ -72,6 +122,9 @@ body {
     height: 100vh;
     line-height: 10px;
     padding-left: 20px;
+    animation: FadeInLeft ease 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 
 #welcome p {
@@ -89,7 +142,19 @@ body {
     font-size: 100px;
     font-weight: bolder;
     padding-right: 50px;
+
 }
+
+#slash {
+    display: block;
+    animation-name: SlashTurn;
+    transform-origin: center;
+    animation-duration: 1s;
+    animation-timing-function:linear;
+    animation-iteration-count: 1;
+}
+
+/* Keyframes */
 
 @keyframes SlashTurn {
     0% {
@@ -109,12 +174,14 @@ body {
     }
 }
 
-#slash {
-    display: block;
-    animation-name: SlashTurn;
-    transform-origin: center;
-    animation-duration: 1s;
-    animation-timing-function:linear;
-    animation-iteration-count: 1;
-}
+@keyframes FadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translate3d(-20px, 0, 0);
+    }
 
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}

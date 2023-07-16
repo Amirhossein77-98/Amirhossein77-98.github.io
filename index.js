@@ -1,7 +1,8 @@
-const now = new Date();
+// Variables
+const now = new Date()
+const minutesFromBeginningOfDay = now.getMinutes() + now.getHours() * 60
 
-const minutesFromBeginningOfDay = now.getMinutes() + now.getHours() * 60;
-
+// Functions
 function getWeatherData() {
   // Fetch and display Weather info based on the user's ip location
   fetch("https://ipinfo.io/json?token=d17fe0b7b78f1e")
@@ -29,7 +30,7 @@ function getWeatherData() {
     
         // Display data
         document.getElementById("weather-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}.png" />`
-        document.getElementById("temp").innerText = Math.floor(temp)
+        document.getElementById("temp").textContent = Math.floor(temp) + " ℃"
     
       })
       .catch(error => console.error(error))
@@ -37,14 +38,34 @@ function getWeatherData() {
 }
 
 function displayWeatherData() {
-  let weatherIcon = localStorage.getItem("weather-icon")
-  let temp = localStorage.getItem("temp")
-  console.log(weatherIcon)
-  console.log(temp)
-  document.getElementById("weather-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherIcon}.png" />`
-  document.getElementById("temp").innerText = Math.floor(Number(temp))
+  document.getElementById("weather-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${localStorage.getItem("weather-icon")}.png" />`
+  document.getElementById("temp").textContent = Math.floor(Number(localStorage.getItem("temp"))) + " ℃"
 }
 
+function timeUpdate() {
+  let currentTime = new Date()
+  let hour = currentTime.getHours()
+  let minute = currentTime.getMinutes()
+
+  if (hour < 10) {
+    hour = "0" + hour
+  }
+  
+  if (minute < 10) {
+    minute = "0" + minute
+  }
+
+  console.log(minute)
+
+  document.getElementById("time").textContent = `${hour}:${minute}`
+  
+  let timeout = (60 - now.getSeconds()) * 1000
+
+  setTimeout(timeUpdate, timeout)
+
+}
+
+// Main body
 if (localStorage.getItem("temp") != null) {
   if (minutesFromBeginningOfDay - Number(localStorage.getItem("lastUpdate")) > 60) {
     getWeatherData()
@@ -53,5 +74,6 @@ if (localStorage.getItem("temp") != null) {
   }
 } else {
   getWeatherData()
-  displayWeatherData()
 }
+
+timeUpdate()

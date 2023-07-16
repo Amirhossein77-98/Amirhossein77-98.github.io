@@ -3,11 +3,24 @@
 <head>
   <title>Main Intro</title>
   <link rel="stylesheet" type="text/css" href="index.css">
-  <script src="index.js"></script>
 </head>
 <body>
     <div id="header">
-        <button id="weather-btn"><span id="weather-icon"></span><span id="temp"></span></button>
+        <div id="weather-time-sec">
+            <button id="weather-btn">
+                <span id="time"></span>
+                <span id="time-weather-seperator">|</span>
+                <span id="weather-icon"></span><span id="temp"></span>
+            </button>
+        </div>
+        <div id="navbar-sec">
+            <button class="nav-btn">Games</button>
+            <button class="nav-btn">Apps</button>
+            <button class="nav-btn">Resume</button>
+            <button class="nav-btn">My Projects</button>
+            <button class="nav-btn">Blog</button>
+        </div>
+        
     </div>
     <div id="container">
         <div id="anim">
@@ -15,9 +28,10 @@
         </div>
         <div id="welcome">
             <p>Hi, welcome to</p>
-            <h1>Amirhossein Gholizadeh</h1>
+            <h1>Amirhossein Gholizadeh's</h1>
             <p>Website</p>
         </div>
     </div>
+    <script src="index.js"></script>
 </body>
 </html>
