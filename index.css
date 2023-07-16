@@ -5,9 +5,16 @@
 }
 
 body {
-    background: radial-gradient(var(--primary), var(--secondary));
-    color: var(--text);
     font-family: 'Trebuchet MS';
+    margin: 0;
+}
+
+.first-glance {
+    color: var(--text);
+    background: radial-gradient(var(--primary), var(--secondary));
+    background-size: cover;
+    background-attachment: fixed;
+    margin-bottom: 40px;
 }
 
 /* Header Styles */
@@ -17,9 +24,8 @@ body {
     grid-template-columns: 20% 80%;
     height: 40px;
     grid-auto-flow: column;
+    padding: 10px 20px;
 }
-
-
 
 /* Weather Button Styles */
 
@@ -36,6 +42,8 @@ body {
     max-width: fit-content;
     font-family: 'Trebuchet MS';
     font-size: 16px;
+    animation-name: WeatherFadeIn;
+    animation-duration: 1s;
 }
 
 #weather-btn:hover {
@@ -56,6 +64,8 @@ body {
     justify-content: center;
     font-size: large;
     margin-right: -10px;
+    animation-name: SepTurn;
+    animation-duration: 1s;
 }
 
 /* Weather Elements Styles */
@@ -97,6 +107,8 @@ body {
     width: fit-content;
     font-family: 'Trebuchet MS';
     font-size: 18px;
+    animation-name: NavFadeIn;
+    animation-duration: 1s;
 }
 
 .nav-btn:hover {
@@ -154,6 +166,23 @@ body {
     animation-iteration-count: 1;
 }
 
+/* First Section */
+
+#first-sec {
+    background-image: url(assets/pngs/h4_img10.png);
+    background-repeat: no-repeat;
+    background-position: 20%;
+    text-align: center;
+    font-size: larger;
+}
+
+#first-sec p {
+    text-align: justify;
+    margin: 0% 30%;
+    line-height: 30px;
+    margin-bottom: 15px;
+}
+
 /* Keyframes */
 
 @keyframes SlashTurn {
@@ -174,9 +203,43 @@ body {
     }
 }
 
+@keyframes SepTurn {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(720deg);
+    }
+}
+
 @keyframes FadeInLeft {
     0% {
         opacity: 0;
+        transform: translate3d(-20px, 0, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes NavFadeIn {
+    0% {
+        opacity: 0.5;
+        transform: translate3d(20px, 0, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes WeatherFadeIn {
+    0% {
+        opacity: 0.5;
         transform: translate3d(-20px, 0, 0);
     }
 

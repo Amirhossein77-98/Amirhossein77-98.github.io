@@ -50,17 +50,13 @@ function timeUpdate() {
   if (hour < 10) {
     hour = "0" + hour
   }
-  
   if (minute < 10) {
     minute = "0" + minute
   }
 
-  console.log(minute)
-
   document.getElementById("time").textContent = `${hour}:${minute}`
   
   let timeout = (60 - now.getSeconds()) * 1000
-
   setTimeout(timeUpdate, timeout)
 
 }
@@ -69,11 +65,13 @@ function timeUpdate() {
 if (localStorage.getItem("temp") != null) {
   if (minutesFromBeginningOfDay - Number(localStorage.getItem("lastUpdate")) > 60) {
     getWeatherData()
+    console.log("First Condition")
   } else if (minutesFromBeginningOfDay - Number(localStorage.getItem("lastUpdate")) <= 60) {
     displayWeatherData()
   }
 } else {
   getWeatherData()
+  console.log("Third Condition")
 }
 
 timeUpdate()
