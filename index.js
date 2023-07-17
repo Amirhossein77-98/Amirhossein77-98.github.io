@@ -1,6 +1,19 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+const appSettings = {
+    databaseURL: "https://personal-website-9f744-default-rtdb.asia-southeast1.firebasedatabase.app/"
+}
+
+const app = initializeApp(appSettings)
+const database = getDatabase(app)
+const workSamplesInDB = ref(database, "work-samples")
+
+
 // Variables
 const now = new Date()
 const minutesFromBeginningOfDay = now.getMinutes() + now.getHours() * 60
+const cardSecEl = document.getElementById("cards-sec")
 
 // Functions
 function getWeatherData() {
@@ -61,7 +74,32 @@ function timeUpdate() {
 
 }
 
-// Main body
+function isInView(element) {
+  const position = element.getBoundingClientRect().top;
+  return position <= window.innerHeight;
+}
+
+function checkReveals() {
+  const reveals = document.querySelectorAll(".reveal");
+  for (var i = 0; i < reveals.length; i++) {
+    const element = reveals[i];
+    if (isInView(element)) {
+      element.classList.add("active");
+    } else {
+      element.classList.remove("active");
+    }
+  }
+}
+
+function placeDetailsInCard(details) {
+  cardSecEl.innerHTML += `<div id="card">
+                              <img src="${details[2][1]}">
+                              <h3>${details[0][1]}</h3>
+                              <p>${details[1][1]}</p>
+                            </div>`
+}
+
+// Getting ip location and weather data
 if (localStorage.getItem("temp") != null) {
   if (minutesFromBeginningOfDay - Number(localStorage.getItem("lastUpdate")) > 60) {
     getWeatherData()
@@ -74,4 +112,15 @@ if (localStorage.getItem("temp") != null) {
   console.log("Third Condition")
 }
 
+// Fetching data from database
+onValue(workSamplesInDB, function(snapshot) {
+  let workSamplesArray = Object.values(snapshot.val())
+  for (let i = 0; i < workSamplesArray.length; i++) {
+    const projectDetails = Object.entries(workSamplesArray[i])
+    placeDetailsInCard(projectDetails)
+  }
+})
+
 timeUpdate()
+checkReveals();
+window.addEventListener("scroll", checkReveals);
