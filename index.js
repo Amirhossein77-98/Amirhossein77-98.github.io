@@ -110,7 +110,7 @@ function addSkillsToTheList(details) {
   // Append the new element to the skills section
   skillsSecEl.innerHTML += `<div class="skill">
                               <h3>${details[0]}</h3>
-                              <div class="barBg"><div id="python" class="bar"></div></div>
+                              <div class="barBg"><div id="${details[0]}-bar" class="bar"></div></div>
                               <span class="percent" data-value="${details[1]}">0</span>
                             </div>`
   // Get the newly added element with the class of percent
