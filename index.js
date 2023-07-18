@@ -75,21 +75,77 @@ function timeUpdate() {
 }
 
 function isInView(element) {
-  const position = element.getBoundingClientRect().top;
-  return position <= window.innerHeight;
+  const position = element.getBoundingClientRect().top
+  return position <= window.innerHeight
 }
 
 function checkReveals() {
-  const reveals = document.querySelectorAll(".reveal");
-  for (var i = 0; i < reveals.length; i++) {
-    const element = reveals[i];
+  const reveals = document.querySelectorAll(".reveal")
+  for (let i = 0; i < reveals.length; i++) {
+    const element = reveals[i]
     if (isInView(element)) {
-      element.classList.add("active");
+      element.classList.add("active")
     } else {
-      element.classList.remove("active");
+      element.classList.remove("active")
     }
   }
 }
+
+function checkBars() {
+  const bars = document.querySelectorAll(".bar")
+  for (let i = 0; i < bars.length; i++) {
+    const element = bars[i]
+    if (isInView(element)) {
+      element.classList.add("active")
+    } else {
+      element.classList.remove("active")
+    }
+  }
+}
+
+// Get the span element
+const percent = document.getElementById("percent")
+
+// Define the starting and ending values
+const startValue = 0
+const endValue = 50
+
+// Define a function that animates the number
+function animateNumber() {
+  // Get the current value of the span
+  let currentValue = parseInt(percent.textContent)
+
+  // Check if the animation is done
+  if (currentValue === endValue) {
+    // Cancel the animation
+    return
+  }
+
+  // Increment the value by one
+  currentValue++
+
+  // Update the span's text
+  percent.textContent = currentValue
+
+  // Request another animation frame
+  requestAnimationFrame(animateNumber)
+}
+
+// Create an intersection observer
+const observer = new IntersectionObserver((entries) => {
+  // Loop through the entries
+  for (const entry of entries) {
+    // Check if the span is intersecting with the viewport
+    if (entry.isIntersecting) {
+      // Start the animation
+      animateNumber()
+    }
+  }
+})
+
+// Observe the span element
+observer.observe(percent)
+
 
 function placeDetailsInCard(details) {
   cardSecEl.innerHTML += `<div id="card">
@@ -122,5 +178,7 @@ onValue(workSamplesInDB, function(snapshot) {
 })
 
 timeUpdate()
-checkReveals();
-window.addEventListener("scroll", checkReveals);
+checkReveals()
+checkBars()
+window.addEventListener("scroll", checkReveals)
+window.addEventListener("scroll", checkBars)
