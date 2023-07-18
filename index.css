@@ -308,9 +308,16 @@ h2 {
     font-weight: bold;
 }
 
+.skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5%;
+    margin: 0 20%;
+}
+
 .skill {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     max-width: 350px;
     border-radius: 100px;
     align-items: center;
@@ -339,13 +346,12 @@ h2 {
     border-radius: 100px;
 }
 
-#percent {
-    margin-left: 30%;
-    margin-right: -45px;
-}
-
 #python {
     max-width: 50%;
+}
+
+#javascript {
+    max-width: 60%;
 }
 
 /* Keyframes */

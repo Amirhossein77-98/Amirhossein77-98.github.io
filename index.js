@@ -8,12 +8,14 @@ const appSettings = {
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const workSamplesInDB = ref(database, "work-samples")
+const skillsInDB = ref(database, "skills")
 
 
 // Variables
 const now = new Date()
 const minutesFromBeginningOfDay = now.getMinutes() + now.getHours() * 60
 const cardSecEl = document.getElementById("cards-sec")
+const skillsSecEl = document.querySelector(".skills")
 
 // Functions
 function getWeatherData() {
@@ -103,17 +105,41 @@ function checkBars() {
   }
 }
 
-// Get the span element
-const percent = document.getElementById("percent")
+function addSkillsToTheList(details) {
+  console.log(details[1])
+  // Append the new element to the skills section
+  skillsSecEl.innerHTML += `<div class="skill">
+                              <h3>${details[0]}</h3>
+                              <div class="barBg"><div id="python" class="bar"></div></div>
+                              <span class="percent" data-value="${details[1]}">0</span>
+                            </div>`
+  // Get the newly added element with the class of percent
+  const percent = skillsSecEl.querySelector(".percent:last-child")
 
-// Define the starting and ending values
+  // Set the starting value as text
+  percent.textContent = startValue
+
+  // Observe the element
+  observer.observe(percent)
+}
+
+onValue(skillsInDB, function(snapshot) {
+  let skillsArray = Object.entries(snapshot.val())
+  for (let i = 0; i < skillsArray.length; i++) {
+    addSkillsToTheList(skillsArray[i])
+  }
+})
+
+// Define the starting value
 const startValue = 0
-const endValue = 50
 
 // Define a function that animates the number
-function animateNumber() {
-  // Get the current value of the span
-  let currentValue = parseInt(percent.textContent)
+function animateNumber(element) {
+  // Get the current value of the element
+  let currentValue = parseInt(element.textContent)
+
+  // Get the ending value from the data-value attribute
+  let endValue = parseInt(element.dataset.value)
 
   // Check if the animation is done
   if (currentValue === endValue) {
@@ -124,27 +150,25 @@ function animateNumber() {
   // Increment the value by one
   currentValue++
 
-  // Update the span's text
-  percent.textContent = currentValue
+  // Update the element's text
+  element.textContent = currentValue + "%"
 
   // Request another animation frame
-  requestAnimationFrame(animateNumber)
+  requestAnimationFrame(() => animateNumber(element))
 }
 
 // Create an intersection observer
 const observer = new IntersectionObserver((entries) => {
   // Loop through the entries
   for (const entry of entries) {
-    // Check if the span is intersecting with the viewport
+    // Check if the element is intersecting with the viewport
     if (entry.isIntersecting) {
       // Start the animation
-      animateNumber()
+      animateNumber(entry.target)
     }
   }
-})
+});
 
-// Observe the span element
-observer.observe(percent)
 
 
 function placeDetailsInCard(details) {
@@ -159,7 +183,6 @@ function placeDetailsInCard(details) {
 if (localStorage.getItem("temp") != null) {
   if (minutesFromBeginningOfDay - Number(localStorage.getItem("lastUpdate")) > 60) {
     getWeatherData()
-    console.log("First Condition")
   } else if (minutesFromBeginningOfDay - Number(localStorage.getItem("lastUpdate")) <= 60) {
     displayWeatherData()
   }
