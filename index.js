@@ -106,32 +106,53 @@ function checkBars() {
 }
 
 function addSkillsToTheList(details) {
-  console.log(details[1])
+  const id = details[0].replace(/\s/g, "-")
   // Append the new element to the skills section
   skillsSecEl.innerHTML += `<div class="skill">
                               <h3>${details[0]}</h3>
-                              <div class="barBg"><div id="${details[0]}-bar" class="bar"></div></div>
-                              <span class="percent" data-value="${details[1]}">0</span>
+                              <div class="barBg"><div id="${id}-bar" class="bar"></div></div>
+                              <span class="percent" id="${id}" data-value="${details[1]}">0</span>
                             </div>`
-  // Get the newly added element with the class of percent
-  const percent = skillsSecEl.querySelector(".percent:last-child")
+}
 
-  // Set the starting value as text
-  percent.textContent = startValue
+// Create an intersection observer
+const observer = new IntersectionObserver((entries) => {
+  // Loop through the entries
+  for (const entry of entries) {
+    // Check if the element is intersecting with the viewport
+    if (entry.isIntersecting) {
+      // Start the animation
+      animateNumber(entry.target)
+    }
+  }
+})
 
-  // Observe the element
-  observer.observe(percent)
+let skillsArrayForAnimate = []
+
+// Define a callback function that takes an array as an argument
+function logSkills(array) {
+  for (let i = 0; i < array.length; i++) {
+    console.log(array[i][1])
+    const id = array[i][0].replace(/\s/g, "-")
+    const obj = document.querySelector(`#${id}`)
+    const barObj = document.querySelector(`#${id}-bar`)
+    console.log(barObj)
+    barObj.style.maxWidth = `${array[i][1]}%`
+    observer.observe(obj)
+  }
 }
 
 onValue(skillsInDB, function(snapshot) {
   let skillsArray = Object.entries(snapshot.val())
   for (let i = 0; i < skillsArray.length; i++) {
     addSkillsToTheList(skillsArray[i])
+    skillsArrayForAnimate.push(skillsArray[i])
   }
+  // Call the callback function and pass the skillsArrayForAnimate array to it
+  logSkills(skillsArrayForAnimate)
 })
 
-// Define the starting value
-const startValue = 0
+// const percent = skillsSecEl.querySelector(`#${id}`)
 
 // Define a function that animates the number
 function animateNumber(element) {
@@ -157,17 +178,9 @@ function animateNumber(element) {
   requestAnimationFrame(() => animateNumber(element))
 }
 
-// Create an intersection observer
-const observer = new IntersectionObserver((entries) => {
-  // Loop through the entries
-  for (const entry of entries) {
-    // Check if the element is intersecting with the viewport
-    if (entry.isIntersecting) {
-      // Start the animation
-      animateNumber(entry.target)
-    }
-  }
-});
+
+// Observe the element
+
 
 
 
