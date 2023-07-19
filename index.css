@@ -122,6 +122,10 @@ h2 {
     text-underline-offset: 10px;
 }
 
+#hamburger-menu {
+    display: none;
+}
+
 /* Main Body Styles */
 
 #container {
@@ -194,24 +198,24 @@ h2 {
     transition: opacity 1s;
 }
   
-  .reveal.active{
+.reveal.active{
     opacity: 1;
 }
 
-  #two-text-box { 
+#two-text-box { 
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
   /* First Section Element Specific Styles */
 
-  #reveal1.active {
+#reveal1.active {
     margin: 0% 30%;
     animation: TopToBottom;
     animation-duration: 1s;
 }
 
-  #reveal2.active {
+#reveal2.active {
     margin-top: 40px;
     padding-left: 100px;
     padding-right: 50px;
@@ -219,7 +223,7 @@ h2 {
     animation-duration: 1s;
 }
 
-  #reveal3.active {
+#reveal3.active {
     margin-top: 40px;
     padding-left: 50px;
     padding-right: 100px;
@@ -424,6 +428,18 @@ h2 {
     }
 }
 
+@keyframes FadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
 @keyframes RightToLeftFadeIn {
     0% {
         opacity: 0.5;
@@ -501,5 +517,297 @@ h2 {
 
     100% {
         width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    
+}
+
+@media only screen and (max-width: 400px) {
+    body {
+        overflow-x: hidden;
+    }
+    #header {
+        display: grid; 
+        grid-template-columns: 60% 40%;
+        height: 40px;
+        grid-auto-flow: column;
+        padding: 10px 20px;
+    }
+
+    #hamburger-menu {
+        display: flex;
+        justify-self: end;
+    }
+
+    #hamburger-btn {
+        margin-right: 0px 20px;
+        border-radius: 100px;
+        background-color: #ffffff57;
+        color: var(--text);
+        border: none;
+        padding: 0px 15px 0px 15px;
+        justify-content: center;
+        font-weight: bold;
+        max-width: fit-content;
+        font-family: var(--font);
+        font-size: 16px;
+        animation-name: RightToLeftFadeIn;
+        animation-duration: 1s;
+    }
+
+    #hamburger-btn ion-icon {
+        font-size: 18px;
+    }
+
+    #hamburger-btn:hover {
+        background-color: #6b6b6b57;
+    }
+
+    #navbar-sec {
+        display: none;
+    }
+
+    /* Main Body Styles */
+
+    #container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        height: 100vh;
+    }
+
+    /* Right side Styles */
+
+    #welcome {
+        display: inline-flex;
+        margin: 1px;
+        padding: 1px;
+        justify-items: center;
+        text-align: center;
+        height: 100px;
+        animation: FadeInUp ease 1s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    #welcome p {
+        font-size: 22px;
+    }
+
+    #welcome h1 {
+        font-size: 25px;
+    }
+
+    /* Left Side Styles */
+
+    #anim {
+        display: inline-flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        height: fit-content;
+        margin: 0 0 50px 0;
+        padding: 1px;
+        font-size: 100px;
+        font-weight: bolder;
+
+    }
+
+    #slash {
+        display: block;
+        animation-name: SlashTurn;
+        transform-origin: center;
+        animation-duration: 1s;
+        animation-timing-function:linear;
+        animation-iteration-count: 1;
+    }
+
+    #first-sec p {
+        text-align: justify;
+        line-height: 25px;
+        margin-bottom: 15px;
+        font-size: 17px;
+    }
+
+    #two-text-box { 
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    #reveal1.active {
+        margin: 0% 5%;
+        animation: RightToLeft;
+        animation-duration: 1s;
+    }
+    
+    #reveal2.active {
+        margin-top: 40px;
+        padding: 0% 5%;
+        animation: LeftToRight;
+        animation-duration: 1s;
+    }
+    
+    #reveal3.active {
+        margin-top: 40px;
+        padding: 0% 5%;
+        animation: RightToLeft;
+        animation-duration: 1s;
+    }
+
+    #second-sec {
+        margin-top: 20px;
+        background-image: url(assets/pngs/pexels-kevin-ku-577585.jpg);
+        background-attachment: fixed;
+        backdrop-filter: blur(200px);
+        height: fit-content;
+        max-width: 100%;
+        padding: 50px 50px 0 50px;
+        display: grid;
+        grid-template-columns: 1fr;
+        text-align: center;
+        color: aliceblue;
+        font-size: 20px;
+        text-shadow: #000000 50px;
+    }
+    
+    #cards-sec {
+        display: flex;
+        justify-content:center;
+        max-width: 200px;
+    }
+    
+    /* Cards Styles */
+    
+    #card {
+        background-color: aliceblue;
+        height: 300px;
+        width: 200px;
+        border-style: solid;
+        border-color: #000000;
+        border-width: 2px;
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        display: grid;
+        text-align: center;
+        margin: 0 20px -100px 20px;
+        padding-bottom: 30px;
+        color: #000000;
+    }
+    
+    #card p {
+        line-height: 12px;
+        text-align: justify;
+        padding: 0px 30px;
+        font-size: 12px;
+        margin-top: 0;
+        overflow-x: hidden;
+    }
+    
+    #card img {
+        max-width: 200px;
+        border-radius: 20px 20px 0px 0px;
+    }
+    
+    #card h3 {
+        font-size: 18px;
+    }
+    
+    #card:hover {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.872);
+        animation: Zoom 0.5s forwards;
+    }
+    
+    #card:hover img {
+        animation: ImgZoom 1s forwards;
+    }
+
+    /* Third Section General Styles */
+
+    #third-sec {
+        margin-top: 150px;
+        margin-bottom: 100px;
+        display: grid;
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    #third-sec h2 {
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .skills {
+        display: grid;
+        grid-template-columns: 1fr;
+        place-items: center;
+        gap: 5%;
+        margin: 50px 5%;
+        background-image: url(assets/pngs/h2_shape-1-opacity-41.png);
+        background-position:center;
+        background-attachment: fixed;
+
+    }
+
+    /* Each Skill's style */
+
+    .skill {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        max-width: 350px;
+        border-radius: 100px;
+        align-items: center;
+        padding: 0px 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.128);
+    }
+
+    .skill h3 {
+        font-size: 16px;
+        font-weight: lighter;
+        font-family: var(--font);
+    }
+
+    .barBg {
+        width: 180px;
+        height: 10px;
+        border-radius: 100px;
+        background-color: lightgray;
+        border: none;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        margin-left: 20px;
+    }
+
+    .bar.active {
+        height: 100%;
+        background-color: rgb(0, 167, 0);
+        animation: BarProgress 0.5s;
+        border-radius: 100px;
+    }
+
+    /* Footer Styles */
+    .footer {
+        background-color: var(--primary);
+        border-radius: 0 0 0px 0px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        color: white;
+        height: auto;
+        justify-items: center;
+        margin-top: 250px;
+    }
+
+    #footer-left {
+        padding: 20px 50px 0 0;
+    }
+
+    #footer-center {
+        padding: 20px 50px 0 0;
+    }
+
+    #footer-right {
+        padding: 0;
     }
 }
