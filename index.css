@@ -253,7 +253,17 @@ h2 {
     justify-content:center;
     overflow-x: scroll;
     height: 600px;
+    /* hide scrollbar for Firefox */
+    scrollbar-width: none;
+    /* hide scrollbar for IE and Edge */
+    -ms-overflow-style: none;
 }
+
+#cards-sec::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+    background: transparent; 
+  }
 
 /* Cards Styles */
 
@@ -684,6 +694,17 @@ h2 {
         justify-content:start;
         overflow-x: scroll;
         height: 400px;
+        /* hide scrollbar for Firefox */
+        scrollbar-width: none;
+        /* hide scrollbar for IE and Edge */
+        -ms-overflow-style: none;
+    }
+
+    #cards-sec::-webkit-scrollbar {
+        /* hide scrollbar for Chrome, Safari and Opera */
+        height: 0;
+        width: 0;
+        background: transparent; 
     }
     
     /* Cards Styles */
