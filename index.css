@@ -640,6 +640,7 @@ h2 {
         width: 200px;
         font-family: var(--font);
         font-size: 16px;
+        align-items: center;
         animation-name: LeftToRightFadeIn;
         animation-duration: 1s;
         transition: all 0.5s;
@@ -1100,7 +1101,6 @@ h2 {
     
     #weather-btn.tapped {
         background-color: #6b6b6b57;
-        width: 300px;
         height: 300px;
         border-radius: 30px;
         display: flex;
@@ -1218,6 +1218,7 @@ h2 {
     #hamburger-menu {
         display: flex;
         justify-self: end;
+        max-width: none;
     }
 
     #hamburger-btn {
@@ -1230,12 +1231,14 @@ h2 {
         justify-content: center;
         align-items: center;
         font-weight: bold;
-        max-width: fit-content;
         font-family: var(--font);
         font-size: 16px;
         height: 50px;
+        width: 100px;
+        max-width: none;
         animation-name: RightToLeftFadeIn;
         animation-duration: 1s;
+        transition: all 0.5s;
     }
 
     #hamburger-btn ion-icon {
@@ -1243,7 +1246,7 @@ h2 {
         align-items: center;
     }
 
-    #hamburger-btn:hover {
+    #hamburger-btn.tapped {
         background-color: #6b6b6b57;
     }
 
