@@ -48,6 +48,7 @@ h2 {
     width: 200px;
     font-family: var(--font);
     font-size: 16px;
+    align-items: center;
     animation-name: LeftToRightFadeIn;
     animation-duration: 1s;
     transition: all 0.5s;
@@ -1090,6 +1091,7 @@ h2 {
         width: 200px;
         font-family: var(--font);
         font-size: 16px;
+        align-items: center;
         animation-name: LeftToRightFadeIn;
         animation-duration: 1s;
         transition: all 0.5s;
