@@ -285,7 +285,7 @@ h2 {
 
 #card p {
     line-height: 20px;
-    text-align: justify;
+    text-align: left;
     padding: 0px 30px;
     font-size: 16px;
     margin-top: 0;
@@ -548,6 +548,72 @@ h2 {
         padding: 10px 20px;
     }
 
+    #weather-btn {
+        margin-right: 0px 20px;
+        border-radius: 100px;
+        background-color: #ffffff57;
+        color: var(--text);
+        border: none;
+        padding: 0px 15px 0px 15px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        max-width: fit-content;
+        font-family: var(--font);
+        font-size: 16px;
+        animation-name: LeftToRightFadeIn;
+        animation-duration: 1s;
+    }
+    
+    #weather-btn:hover {
+        background-color: #6b6b6b57;
+    }
+    
+    /* Time Elements Style */
+    
+    #time {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #time-weather-seperator {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: large;
+        margin-right: -10px;
+        animation-name: SepTurn;
+        animation-duration: 1s;
+    }
+    
+    /* Weather Elements Styles */
+    
+    #weather-btn img {
+        max-height: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #weather-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #temp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: fit-content;
+        align-items: center;
+    }
+
     #hamburger-menu {
         display: flex;
         justify-self: end;
@@ -561,6 +627,7 @@ h2 {
         border: none;
         padding: 0px 15px 0px 15px;
         justify-content: center;
+        align-items: center;
         font-weight: bold;
         max-width: fit-content;
         font-family: var(--font);
@@ -571,6 +638,7 @@ h2 {
 
     #hamburger-btn ion-icon {
         font-size: 18px;
+        align-items: center;
     }
 
     #hamburger-btn:hover {
