@@ -614,14 +614,17 @@ h2 {
     body {
         overflow-x: hidden;
     }
-    #header {
-        display: grid; 
-        grid-template-columns: 60% 40%;
-        height: 40px;
-        grid-auto-flow: column;
-        padding: 10px 20px;
-    }
 
+    #header {
+        display: flex;
+        justify-content: space-between;
+        height: 40px;
+        max-height: 40px;
+        padding: 10px 10px;
+    }
+    
+    /* Weather Button Styles */
+    
     #weather-btn {
         margin-right: 0px 20px;
         border-radius: 100px;
@@ -631,18 +634,25 @@ h2 {
         padding: 0px 15px 0px 15px;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        justify-content: center;
-        align-items: center;
         font-weight: bold;
-        max-width: fit-content;
+        height: 50px;
+        width: 200px;
         font-family: var(--font);
         font-size: 16px;
         animation-name: LeftToRightFadeIn;
         animation-duration: 1s;
+        transition: all 0.5s;
+        max-width: none;
     }
     
-    #weather-btn:hover {
+    #weather-btn.tapped {
         background-color: #6b6b6b57;
+        width: 300px;
+        height: 300px;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     
     /* Time Elements Style */
@@ -651,41 +661,105 @@ h2 {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        transition: all 0.5s;
+    }
+    
+    #time-sec {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: all 0.5s;
+    }
+    
+    #loc {
+        display: none;
+    }
+    
+    #weather-btn.tapped #loc {
+        display: flex;
+    }
+    
+    #weather-btn.tapped #time-sec {
+        display: flex;
+        justify-content: space-between;
+        transition: all 0.5s;
+    }
+    
+    #weather-btn.tapped #time-date {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: all 0.5s;
+    }
+    
+    #date {
+        display: none;
+    }
+    
+    #weather-btn.tapped #date {
+        display: flex;
+    }
+    
+    #weather-btn.tapped #time {
+        padding: 0px;
+        justify-content:space-between;
+        align-items: start;
+        font-size: 30px;
     }
     
     #time-weather-seperator {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         font-size: large;
         margin-right: -10px;
         animation-name: SepTurn;
         animation-duration: 1s;
     }
     
+    #weather-btn.tapped #time-weather-seperator {
+        display: none;
+    }
+    
     /* Weather Elements Styles */
     
     #weather-btn img {
-        max-height: 40px;
-        align-items: center;
-        justify-content: center;
+        height: 40px;
+        width: 40px;
+    }
+    
+    #weather-btn.tapped img {
+        height: 150px;
+        width: 150px;
     }
     
     #weather-icon {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+    
+    #weather-btn.tapped #weather-icon {
+        display: flex;
+        justify-content: center;
         align-items: center;
+        margin-right: 0;
     }
     
     #temp {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        max-width: fit-content;
         align-items: center;
+    }
+    
+    #weather-btn.tapped #temp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 30px;
+        margin-right: -10px;
     }
 
     #hamburger-menu {
