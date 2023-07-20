@@ -221,18 +221,19 @@ onValue(workSamplesInDB, function(snapshot) {
   }
 })
 
-let fullWidth = false
+let weatherBtnFullWidth = false
+let hamburgerBtnFullWidth = false
 
 weatherBtnEl.addEventListener("click", function() {
 
   weatherBtnEl.classList.toggle("tapped")
 
-  if (!fullWidth) {
+  if (!weatherBtnFullWidth) {
     document.querySelector("#weather-btn.tapped").style.width = (window.innerWidth - 20) + "px";
-    fullWidth = true
+    weatherBtnFullWidth = true
   } else {
     document.querySelector("#weather-btn").style.width = ""
-    fullWidth = false;
+    weatherBtnFullWidth = false;
   }
 
   if (weatherBtnEl.classList.contains("tapped")) {
@@ -246,12 +247,12 @@ hamburgerBtnEl.addEventListener("click", function() {
 
   hamburgerBtnEl.classList.toggle("tapped")
 
-  if (!fullWidth) {
+  if (!hamburgerBtnFullWidth) {
     document.querySelector("#hamburger-btn.tapped").style.width = (window.innerWidth - 20) + "px";
-    fullWidth = true
+    hamburgerBtnFullWidth = true
   } else {
     document.querySelector("#hamburger-btn").style.width = ""
-    fullWidth = false;
+    hamburgerBtnFullWidth = false;
   }
 
   if (hamburgerBtnEl.classList.contains("tapped")) {
