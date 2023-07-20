@@ -238,7 +238,7 @@ h2 {
     background-image: url(assets/pngs/pexels-kevin-ku-577585.jpg);
     background-attachment: fixed;
     backdrop-filter: blur(200px);
-    height: fit-content;
+    height: 530px;
     padding: 50px 50px 0 50px;
     display: grid;
     grid-template-columns: 1fr;
@@ -251,6 +251,8 @@ h2 {
 #cards-sec {
     display: flex;
     justify-content:center;
+    overflow-x: scroll;
+    height: 600px;
 }
 
 /* Cards Styles */
@@ -662,9 +664,9 @@ h2 {
         background-image: url(assets/pngs/pexels-kevin-ku-577585.jpg);
         background-attachment: fixed;
         backdrop-filter: blur(200px);
-        height: fit-content;
+        height: 350px;
         max-width: 100%;
-        padding: 50px 50px 0 50px;
+        padding: 50px 0 0 0;
         display: grid;
         grid-template-columns: 1fr;
         text-align: center;
@@ -672,11 +674,16 @@ h2 {
         font-size: 20px;
         text-shadow: #000000 50px;
     }
+
+    #second-sec h2 {
+        padding: 0 50px;
+    }
     
     #cards-sec {
         display: flex;
-        justify-content:center;
-        max-width: 200px;
+        justify-content:start;
+        overflow-x: scroll;
+        height: 400px;
     }
     
     /* Cards Styles */
