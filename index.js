@@ -19,6 +19,7 @@ const minutesFromBeginningOfDay = now.getMinutes() + now.getHours() * 60
 const cardSecEl = document.getElementById("cards-sec")
 const skillsSecEl = document.querySelector(".skills")
 let weatherBtnEl = document.querySelector("#weather-btn")
+let hamburgerBtnEl = document.querySelector("#hamburger-btn")
 
 // Functions
 function getWeatherData() {
@@ -220,9 +221,47 @@ onValue(workSamplesInDB, function(snapshot) {
   }
 })
 
+let fullWidth = false
+
 weatherBtnEl.addEventListener("click", function() {
+
   weatherBtnEl.classList.toggle("tapped")
+
+  if (!fullWidth) {
+    document.querySelector("#weather-btn.tapped").style.width = (window.innerWidth - 20) + "px";
+    fullWidth = true
+  } else {
+    document.querySelector("#weather-btn.tapped").style.width = ""
+    fullWidth = false;
+  }
+
+  if (weatherBtnEl.classList.contains("tapped")) {
+    hamburgerBtnEl.style.display = "none"
+  } else {
+    hamburgerBtnEl.style.display = "flex"
+  }
 })
+
+hamburgerBtnEl.addEventListener("click", function() {
+
+  hamburgerBtnEl.classList.toggle("tapped")
+
+  if (!fullWidth) {
+    document.querySelector("#hamburger-btn.tapped").style.width = (window.innerWidth - 20) + "px";
+    fullWidth = true
+  } else {
+    document.querySelector("#hamburger-btn.tapped").style.width = ""
+    fullWidth = false;
+  }
+
+  if (hamburgerBtnEl.classList.contains("tapped")) {
+    weatherBtnEl.style.display = "none"
+  } else {
+    weatherBtnEl.style.display = "grid"
+  }
+})
+
+
 
 timeUpdate()
 checkReveals()
