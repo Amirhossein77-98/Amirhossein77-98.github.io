@@ -259,8 +259,7 @@ hamburgerBtnEl.addEventListener("click", function() {
   } else {
     weatherBtnEl.style.display = "grid"
   }
-
-
+})
 
 timeUpdate()
 checkReveals()
