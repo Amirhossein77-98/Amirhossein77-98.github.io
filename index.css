@@ -25,10 +25,10 @@ h2 {
 /* Header Styles */
 
 #header {
-    display: grid; 
-    grid-template-columns: 20% 80%;
+    display: flex;
+    justify-content: space-between;
     height: 40px;
-    grid-auto-flow: column;
+    max-height: 40px;
     padding: 10px 20px;
 }
 
@@ -44,15 +44,23 @@ h2 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     font-weight: bold;
-    max-width: fit-content;
+    height: 50px;
+    width: 200px;
     font-family: var(--font);
     font-size: 16px;
     animation-name: LeftToRightFadeIn;
     animation-duration: 1s;
+    transition: all 0.5s;
 }
 
 #weather-btn:hover {
     background-color: #6b6b6b57;
+    width: 300px;
+    height: 300px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Time Elements Style */
@@ -61,6 +69,50 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: all 0.5s;
+}
+
+#time-sec {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.5s;
+}
+
+#loc {
+    display: none;
+}
+
+#weather-btn:hover #loc {
+    display: flex;
+}
+
+#weather-btn:hover #time-sec {
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.5s;
+}
+
+#weather-btn:hover #time-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.5s;
+}
+
+#date {
+    display: none;
+}
+
+#weather-btn:hover #date {
+    display: flex;
+}
+
+#weather-btn:hover #time {
+    padding: 0px;
+    justify-content:space-between;
+    align-items: start;
+    font-size: 30px;
 }
 
 #time-weather-seperator {
@@ -73,10 +125,20 @@ h2 {
     animation-duration: 1s;
 }
 
+#weather-btn:hover #time-weather-seperator {
+    display: none;
+}
+
 /* Weather Elements Styles */
 
 #weather-btn img {
-    max-height: 40px;
+    height: 40px;
+    width: 40px;
+}
+
+#weather-btn:hover img {
+    height: 150px;
+    width: 150px;
 }
 
 #weather-icon {
@@ -85,11 +147,27 @@ h2 {
     justify-content: center;
 }
 
+#weather-btn:hover #weather-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+}
+
 #temp {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: fit-content;
+    align-items: center;
+}
+
+#weather-btn:hover #temp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 30px;
+    margin-right: -10px;
 }
 
 /* Navbar Section Styles */

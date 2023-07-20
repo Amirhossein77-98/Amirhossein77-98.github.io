@@ -9,6 +9,8 @@ const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const workSamplesInDB = ref(database, "work-samples")
 const skillsInDB = ref(database, "skills")
+let cityLoc = localStorage.getItem("location")
+document.getElementById("loc").textContent = `${cityLoc}`
 
 
 // Variables
@@ -26,6 +28,8 @@ function getWeatherData() {
 
     // Get city name from IP data
     const city = data.city
+    cityLoc = city
+    document.getElementById("loc").textContent = `${cityLoc}`
 
     // Create Open Weather URL based on the city name
     const openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=88eec158e75ca5e56926713d90f24003`
@@ -42,6 +46,7 @@ function getWeatherData() {
         localStorage.setItem("temp", temp)
         localStorage.setItem("weather-icon", icon)
         localStorage.setItem("lastUpdate", minutesFromBeginningOfDay)
+        localStorage.setItem("location", city)
     
         // Display data
         document.getElementById("weather-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}.png" />`
@@ -61,6 +66,9 @@ function timeUpdate() {
   let currentTime = new Date()
   let hour = currentTime.getHours()
   let minute = currentTime.getMinutes()
+  let day = currentTime.getDate()
+  let month = currentTime.getMonth()
+  let year = currentTime.getFullYear()
 
   if (hour < 10) {
     hour = "0" + hour
@@ -70,6 +78,7 @@ function timeUpdate() {
   }
 
   document.getElementById("time").textContent = `${hour}:${minute}`
+  document.getElementById("date").textContent = `${day}/${month}/${year}`
   
   let timeout = (60 - now.getSeconds()) * 1000
   setTimeout(timeUpdate, timeout)
@@ -132,11 +141,9 @@ let skillsArrayForAnimate = []
 // Define a callback function that takes an array as an argument
 function logSkills(array) {
   for (let i = 0; i < array.length; i++) {
-    console.log(array[i][1])
     const id = array[i][0].replace(/\s/g, "-")
     const obj = document.querySelector(`#${id}`)
     const barObj = document.querySelector(`#${id}-bar`)
-    console.log(barObj)
     barObj.style.maxWidth = `${array[i][1]}%`
     observer.observe(obj)
   }
@@ -201,7 +208,6 @@ if (localStorage.getItem("temp") != null) {
   }
 } else {
   getWeatherData()
-  console.log("Third Condition")
 }
 
 // Fetching data from database
