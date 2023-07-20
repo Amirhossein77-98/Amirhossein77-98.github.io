@@ -18,6 +18,7 @@ const now = new Date()
 const minutesFromBeginningOfDay = now.getMinutes() + now.getHours() * 60
 const cardSecEl = document.getElementById("cards-sec")
 const skillsSecEl = document.querySelector(".skills")
+let weatherBtnEl = document.querySelector("#weather-btn")
 
 // Functions
 function getWeatherData() {
@@ -217,6 +218,10 @@ onValue(workSamplesInDB, function(snapshot) {
     const projectDetails = Object.entries(workSamplesArray[i])
     placeDetailsInCard(projectDetails)
   }
+})
+
+weatherBtnEl.addEventListener("click", function() {
+  weatherBtnEl.classList.toggle("tapped")
 })
 
 timeUpdate()
