@@ -231,7 +231,7 @@ weatherBtnEl.addEventListener("click", function() {
     document.querySelector("#weather-btn.tapped").style.width = (window.innerWidth - 20) + "px";
     fullWidth = true
   } else {
-    document.querySelector("#weather-btn.tapped").style.width = ""
+    document.querySelector("#weather-btn").style.width = ""
     fullWidth = false;
   }
 
@@ -250,7 +250,7 @@ hamburgerBtnEl.addEventListener("click", function() {
     document.querySelector("#hamburger-btn.tapped").style.width = (window.innerWidth - 20) + "px";
     fullWidth = true
   } else {
-    document.querySelector("#hamburger-btn.tapped").style.width = ""
+    document.querySelector("#hamburger-btn").style.width = ""
     fullWidth = false;
   }
 
@@ -259,7 +259,6 @@ hamburgerBtnEl.addEventListener("click", function() {
   } else {
     weatherBtnEl.style.display = "grid"
   }
-})
 
 
 
