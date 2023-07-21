@@ -221,44 +221,81 @@ onValue(workSamplesInDB, function(snapshot) {
   }
 })
 
-let weatherBtnFullWidth = false
-let hamburgerBtnFullWidth = false
+// let weatherBtnFullWidth = false
+// let hamburgerBtnFullWidth = false
 
-weatherBtnEl.addEventListener("click", function() {
+// weatherBtnEl.addEventListener("click", function() {
 
-  weatherBtnEl.classList.toggle("tapped")
+//   weatherBtnEl.classList.toggle("tapped")
 
-  if (!weatherBtnFullWidth) {
-    document.querySelector("#weather-btn.tapped").style.width = (window.innerWidth - 20) + "px";
-    weatherBtnFullWidth = true
+//   if (!weatherBtnFullWidth) {
+//     document.querySelector("#weather-btn.tapped").style.width = (window.innerWidth - 40) + "px";
+//     console.log("First")
+//     weatherBtnFullWidth = true
+//   } else {
+//     document.querySelector("#weather-btn").style.width = ""
+//     console.log("Second")
+//     weatherBtnFullWidth = false;
+//   }
+
+//   if (weatherBtnEl.classList.contains("tapped")) {
+//     hamburgerBtnEl.style.display = "none"
+//   } else {
+//     hamburgerBtnEl.style.display = "flex"
+//   }
+// })
+
+// hamburgerBtnEl.addEventListener("click", function() {
+
+//   hamburgerBtnEl.classList.toggle("tapped")
+
+//   if (!hamburgerBtnFullWidth) {
+//     document.querySelector("#hamburger-btn.tapped").style.width = (window.innerWidth - 20) + "px";
+//     hamburgerBtnFullWidth = true
+//   } else {
+//     document.querySelector("#hamburger-btn").style.width = ""
+//     hamburgerBtnFullWidth = false;
+//   }
+
+//   if (hamburgerBtnEl.classList.contains("tapped")) {
+//     weatherBtnEl.style.display = "none"
+//   } else {
+//     weatherBtnEl.style.display = "grid"
+//   }
+// })
+
+let weatherBtnWide = false
+let hamburgerBtnWide = false
+
+weatherBtnEl.addEventListener("touchstart", ()=> {
+  if (!weatherBtnWide) {
+    document.querySelector("#hamburger-menu").style.display = "none"
+    weatherBtnEl.classList.add("tapped")
+    weatherBtnEl.style.width = (window.innerWidth - 20) + "px";
+    weatherBtnWide = true
   } else {
-    document.querySelector("#weather-btn").style.width = ""
-    weatherBtnFullWidth = false;
-  }
-
-  if (weatherBtnEl.classList.contains("tapped")) {
-    hamburgerBtnEl.style.display = "none"
-  } else {
-    hamburgerBtnEl.style.display = "flex"
+    document.querySelector("#hamburger-menu").removeAttribute("style")
+    weatherBtnEl.classList.remove("tapped")
+    weatherBtnEl.removeAttribute("class")
+    weatherBtnEl.removeAttribute("style")
+    weatherBtnWide = false
   }
 })
 
-hamburgerBtnEl.addEventListener("click", function() {
-
-  hamburgerBtnEl.classList.toggle("tapped")
-
-  if (!hamburgerBtnFullWidth) {
-    document.querySelector("#hamburger-btn.tapped").style.width = (window.innerWidth - 20) + "px";
-    hamburgerBtnFullWidth = true
+hamburgerBtnEl.addEventListener("touchstart", ()=> {
+  if (!hamburgerBtnWide) {
+    document.querySelector("#weather-time-sec").style.display = "none"
+    hamburgerBtnEl.classList.add("tapped")
+    hamburgerBtnEl.style.width = (window.innerWidth - 20) + "px";
+    document.querySelector("#header").style.justifyContent = "end"
+    hamburgerBtnWide = true
   } else {
-    document.querySelector("#hamburger-btn").style.width = ""
-    hamburgerBtnFullWidth = false;
-  }
-
-  if (hamburgerBtnEl.classList.contains("tapped")) {
-    weatherBtnEl.style.display = "none"
-  } else {
-    weatherBtnEl.style.display = "grid"
+    document.querySelector("#weather-time-sec").removeAttribute("style")
+    hamburgerBtnEl.classList.remove("tapped")
+    hamburgerBtnEl.removeAttribute("class")
+    hamburgerBtnEl.removeAttribute("style")
+    document.querySelector("#header").removeAttribute("style")
+    hamburgerBtnWide = false
   }
 })
 

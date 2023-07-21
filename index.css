@@ -54,14 +54,70 @@ h2 {
     transition: all 0.5s;
 }
 
-#weather-btn:hover {
-    background-color: #6b6b6b57;
-    width: 300px;
-    height: 300px;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+@media (hover: hover) {
+    #weather-btn:hover {
+        background-color: #6b6b6b57;
+        width: 300px;
+        height: 300px;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #weather-btn:hover #loc {
+        display: flex;
+    }
+    
+    #weather-btn:hover #time-sec {
+        display: flex;
+        justify-content: space-between;
+        transition: all 0.5s;
+    }
+    
+    #weather-btn:hover #time-date {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: all 0.5s;
+    }
+    #weather-btn:hover #date {
+        display: flex;
+    }
+    
+    #weather-btn:hover #time {
+        padding: 0px;
+        justify-content:space-between;
+        align-items: start;
+        font-size: 30px;
+    }
+    #weather-btn:hover #time-weather-seperator {
+        display: none;
+    }
+    #weather-btn:hover img {
+        height: 150px;
+        width: 150px;
+    }
+    #weather-btn:hover #weather-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0;
+    }
+    #weather-btn:hover #temp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 30px;
+        margin-right: -10px;
+    }
+    .nav-btn:hover {
+        color: seagreen;
+        text-decoration: underline;
+        text-decoration-thickness: 4px;
+        text-underline-offset: 10px;
+    }
 }
 
 /* Time Elements Style */
@@ -84,36 +140,8 @@ h2 {
     display: none;
 }
 
-#weather-btn:hover #loc {
-    display: flex;
-}
-
-#weather-btn:hover #time-sec {
-    display: flex;
-    justify-content: space-between;
-    transition: all 0.5s;
-}
-
-#weather-btn:hover #time-date {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: all 0.5s;
-}
-
 #date {
     display: none;
-}
-
-#weather-btn:hover #date {
-    display: flex;
-}
-
-#weather-btn:hover #time {
-    padding: 0px;
-    justify-content:space-between;
-    align-items: start;
-    font-size: 30px;
 }
 
 #time-weather-seperator {
@@ -126,20 +154,11 @@ h2 {
     animation-duration: 1s;
 }
 
-#weather-btn:hover #time-weather-seperator {
-    display: none;
-}
-
 /* Weather Elements Styles */
 
 #weather-btn img {
     height: 40px;
     width: 40px;
-}
-
-#weather-btn:hover img {
-    height: 150px;
-    width: 150px;
 }
 
 #weather-icon {
@@ -148,27 +167,11 @@ h2 {
     justify-content: center;
 }
 
-#weather-btn:hover #weather-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0;
-}
-
 #temp {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-#weather-btn:hover #temp {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    font-size: 30px;
-    margin-right: -10px;
 }
 
 /* Navbar Section Styles */
@@ -192,13 +195,6 @@ h2 {
     font-family: var(--font);
     font-size: 18px;
     animation: RightToLeftFadeIn 1s;
-}
-
-.nav-btn:hover {
-    color: seagreen;
-    text-decoration: underline;
-    text-decoration-thickness: 4px;
-    text-underline-offset: 10px;
 }
 
 #hamburger-menu {
