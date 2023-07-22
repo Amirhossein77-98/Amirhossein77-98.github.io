@@ -264,25 +264,34 @@ onValue(workSamplesInDB, function(snapshot) {
 //   }
 // })
 
-let weatherBtnWide = false
+let weatherExpanded  = false
 let hamburgerBtnWide = false
 
-weatherBtnEl.addEventListener("touchstart", (event)=> {
-  if (!weatherBtnWide) {
-    document.querySelector("#hamburger-menu").style.display = "none"
-    weatherBtnEl.classList.add("tapped")
+// Weather Button Handlers
+weatherBtnEl.addEventListener("touchstart", (e) => {
+
+  if(!weatherExpanded) {
+    // Expand weather button
+    document.querySelector("#hamburger-menu").style.display = "none";
+    weatherBtnEl.classList.add("tapped");
     weatherBtnEl.style.width = (window.innerWidth - 20) + "px";
-    weatherBtnWide = true
+    weatherExpanded = true;
+
   } else {
-    event.preventDefault()
-    event.stopPropagation()
-    document.querySelector("#hamburger-menu").removeAttribute("style")
-    weatherBtnEl.classList.remove("tapped")
-    weatherBtnEl.removeAttribute("class")
-    weatherBtnEl.removeAttribute("style")
-    weatherBtnWide = false
+    // Shrink weather button 
+    e.preventDefault();
+    e.stopPropagation();
+    document.querySelector("#hamburger-menu").removeAttribute("style");
+    weatherBtnEl.classList.remove("tapped");
+    weatherBtnEl.removeAttribute("style");
+    weatherExpanded = false;
   }
-})
+
+});
+
+weatherBtnEl.addEventListener("touchend", (e) => {
+  e.preventDefault();
+});
 
 hamburgerBtnEl.addEventListener("touchstart", ()=> {
   if (!hamburgerBtnWide) {
