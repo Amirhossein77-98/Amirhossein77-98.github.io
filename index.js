@@ -265,7 +265,7 @@ onValue(workSamplesInDB, function(snapshot) {
 // })
 
 let weatherExpanded  = false
-let hamburgerBtnWide = false
+let hamburgerExpanded = false
 
 // Weather Button Handlers
 weatherBtnEl.addEventListener("touchstart", (e) => {
@@ -293,22 +293,33 @@ weatherBtnEl.addEventListener("touchend", (e) => {
   e.preventDefault();
 });
 
-hamburgerBtnEl.addEventListener("touchstart", ()=> {
-  if (!hamburgerBtnWide) {
-    document.querySelector("#weather-time-sec").style.display = "none"
-    hamburgerBtnEl.classList.add("tapped")
-    hamburgerBtnEl.style.width = (window.innerWidth - 20) + "px";
-    document.querySelector("#header").style.justifyContent = "end"
-    hamburgerBtnWide = true
+// Hamburger Button Handlers
+hamburgerBtnEl.addEventListener("touchstart", (e) => {
+
+  if(!hamburgerExpanded) {
+    // Expand hamburger button
+    document.querySelector("#weather-time-sec").style.display = "none";
+    hamburgerBtnEl.classList.add("expanded");
+    hamburgerBtnEl.style.width = (window.innerWidth - 20) + "px"; 
+    document.querySelector("#header").style.justifyContent = "end";
+    hamburgerExpanded = true;
+
   } else {
-    document.querySelector("#weather-time-sec").removeAttribute("style")
-    hamburgerBtnEl.classList.remove("tapped")
-    hamburgerBtnEl.removeAttribute("class")
-    hamburgerBtnEl.removeAttribute("style")
-    document.querySelector("#header").removeAttribute("style")
-    hamburgerBtnWide = false
+    // Shrink hamburger button
+    e.preventDefault();
+    e.stopPropagation();
+    document.querySelector("#weather-time-sec").removeAttribute("style");
+    hamburgerBtnEl.classList.remove("expanded");
+    hamburgerBtnEl.removeAttribute("style");
+    document.querySelector("#header").removeAttribute("style");
+    hamburgerExpanded = false;
   }
-})
+
+});
+
+hamburgerBtnEl.addEventListener("touchend", (e) => {
+  e.preventDefault();
+});
 
 timeUpdate()
 checkReveals()
