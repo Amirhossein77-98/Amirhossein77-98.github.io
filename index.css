@@ -1245,6 +1245,26 @@ h2 {
 
     #hamburger-btn.tapped {
         background-color: #6b6b6b57;
+        border-radius: 30px;
+        display: flex;
+        gap: 5%;
+    }
+
+    #hamburger-btn.tapped ion-icon {
+        display: none;
+    }
+
+    #hamburger-btn.tapped span {
+        display: none;
+    }
+
+    .menu-items {
+        display: none;
+        transition: all 1s linear;
+    }
+
+    #hamburger-btn.tapped .menu-items{
+        display: flex;
     }
 
     #navbar-sec {
