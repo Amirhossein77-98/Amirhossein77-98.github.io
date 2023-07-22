@@ -245,6 +245,28 @@ h2 {
 
 }
 
+#easteregg {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#easteregg-btn {
+    display: none;
+    background-color: #6161618e;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 55px;
+    margin-top: 9px;
+    animation: ButtonExpander 0.5s;
+}
+
 #slash {
     display: block;
     animation-name: SlashTurn;
@@ -609,6 +631,26 @@ h2 {
 
     100% {
         width: 100%;
+    }
+}
+
+@keyframes ButtonExpander {
+    0% {
+        width: 0px;
+    }
+
+    100% {
+        width: 200px;
+    }
+}
+
+@keyframes ButtonShrinker {
+    0% {
+        width: 200px;
+    }
+
+    100% {
+        width: 0px;
     }
 }
 
@@ -1246,6 +1288,7 @@ h2 {
     #hamburger-btn ion-icon {
         font-size: 18px;
         align-items: center;
+        padding-right: 5px;
     }
 
     #hamburger-btn.tapped {
@@ -1320,7 +1363,28 @@ h2 {
         padding: 1px;
         font-size: 100px;
         font-weight: bolder;
+    }
 
+    #easteregg {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #easteregg-btn {
+        display: none;
+        background-color: #6161618e;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 20px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 55px;
+        margin-top: 9px;
+        animation: ButtonExpander 0.5s;
     }
 
     #slash {

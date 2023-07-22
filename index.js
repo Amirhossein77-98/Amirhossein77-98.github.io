@@ -18,8 +18,12 @@ const now = new Date()
 const minutesFromBeginningOfDay = now.getMinutes() + now.getHours() * 60
 const cardSecEl = document.getElementById("cards-sec")
 const skillsSecEl = document.querySelector(".skills")
-let weatherBtnEl = document.querySelector("#weather-btn")
-let hamburgerBtnEl = document.querySelector("#hamburger-btn")
+const weatherBtnEl = document.querySelector("#weather-btn")
+const hamburgerBtnEl = document.querySelector("#hamburger-btn")
+const slashEl = document.getElementById("slash")
+const eastereggEl = document.getElementById("easteregg")
+const eastereggBtn = document.getElementById("easteregg-btn")
+const greatLessEl = document.querySelectorAll(".greatLessSymbols")
 
 // Functions
 function getWeatherData() {
@@ -279,6 +283,28 @@ hamburgerBtnEl.addEventListener("touchstart", (e) => {
   }
 })
 
+let easterRevealed = false
+
+eastereggEl.addEventListener("touchstart", (e) => {
+  if (!easterRevealed) {
+    slashEl.style.display = "none"
+    eastereggBtn.style.display = "flex"
+    easterRevealed = true
+  }
+})
+
+for (let element of greatLessEl) {
+  element.addEventListener("touchstart", (e) => {
+    if (easterRevealed) {
+      eastereggBtn.style.animationName = "ButtonShrinker"
+      eastereggBtn.style.animationDuration = "0.5s"
+      setTimeout(() => {
+        eastereggBtn.style.display = "none"
+        slashEl.removeAttribute("style")
+      }, 300)
+    }
+  })
+}
 
 timeUpdate()
 checkReveals()
