@@ -270,7 +270,7 @@ hamburgerBtnEl.addEventListener("touchstart", (e) => {
     hamburgerBtnEl.removeAttribute("style");
     setTimeout(() => {
       document.querySelector("#header").removeAttribute("style"); 
-    }, 200);
+    }, 250);
     hamburgerExpanded = false;
   }
 
