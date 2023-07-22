@@ -5,10 +5,10 @@
     --font: 'Trebuchet MS'
 }
 
-a:link {
+/* a:link {
     color: white;
     text-decoration: none;
-}
+} */
 
 body {
     font-family: var(--font);
