@@ -267,13 +267,15 @@ onValue(workSamplesInDB, function(snapshot) {
 let weatherBtnWide = false
 let hamburgerBtnWide = false
 
-weatherBtnEl.addEventListener("touchstart", ()=> {
+weatherBtnEl.addEventListener("touchstart", (event)=> {
   if (!weatherBtnWide) {
     document.querySelector("#hamburger-menu").style.display = "none"
     weatherBtnEl.classList.add("tapped")
     weatherBtnEl.style.width = (window.innerWidth - 20) + "px";
     weatherBtnWide = true
   } else {
+    event.preventDefault()
+    event.stopPropagation()
     document.querySelector("#hamburger-menu").removeAttribute("style")
     weatherBtnEl.classList.remove("tapped")
     weatherBtnEl.removeAttribute("class")
