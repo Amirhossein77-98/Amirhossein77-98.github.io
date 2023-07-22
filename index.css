@@ -5,10 +5,10 @@
     --font: 'Trebuchet MS'
 }
 
-/* a:link {
+a:link {
     color: white;
     text-decoration: none;
-} */
+}
 
 body {
     font-family: var(--font);
@@ -1224,14 +1224,14 @@ h2 {
     }
 
     #hamburger-btn {
+        display: flex;
         margin-right: 0px 20px;
         border-radius: 100px;
         background-color: #ffffff57;
         color: var(--text);
         border: none;
-        padding: 0px 15px 0px 15px;
+        padding: 0px 15px;
         justify-content: center;
-        align-items: center;
         font-weight: bold;
         font-family: var(--font);
         font-size: 16px;

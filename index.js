@@ -250,18 +250,21 @@ weatherBtnEl.addEventListener("touchend", (e) => {
   e.preventDefault()
 })
 
-// Hamburger Button Handlers
 hamburgerBtnEl.addEventListener("touchstart", (e) => {
+  // Check if the target element is an <a> tag
+  if (e.target.tagName === "A" && e.target.id !== "shrinker") {
+    // Allow the default behavior and propagation
+    return
+  }
 
   if(!hamburgerExpanded) {
     // Expand hamburger button
     document.querySelector("#weather-time-sec").style.display = "none"
     hamburgerBtnEl.classList.add("tapped")
-    hamburgerBtnEl.style.width = (window.innerWidth - 20) + "px"
+    hamburgerBtnEl.style.width = (window.innerWidth - 50) + "px"
     document.querySelector("#header").style.justifyContent = "end"
     // document.querySelector(".menu-items").style.display = "flex"
     hamburgerExpanded = true
-
   } else {
     // Shrink hamburger button
     e.preventDefault()
@@ -274,12 +277,8 @@ hamburgerBtnEl.addEventListener("touchstart", (e) => {
     }, 250);
     hamburgerExpanded = false
   }
-
 })
 
-hamburgerBtnEl.addEventListener("touchend", (e) => {
-  e.preventDefault()
-})
 
 timeUpdate()
 checkReveals()
