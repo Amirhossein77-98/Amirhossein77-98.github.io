@@ -221,49 +221,6 @@ onValue(workSamplesInDB, function(snapshot) {
   }
 })
 
-// let weatherBtnFullWidth = false
-// let hamburgerBtnFullWidth = false
-
-// weatherBtnEl.addEventListener("click", function() {
-
-//   weatherBtnEl.classList.toggle("tapped")
-
-//   if (!weatherBtnFullWidth) {
-//     document.querySelector("#weather-btn.tapped").style.width = (window.innerWidth - 40) + "px";
-//     console.log("First")
-//     weatherBtnFullWidth = true
-//   } else {
-//     document.querySelector("#weather-btn").style.width = ""
-//     console.log("Second")
-//     weatherBtnFullWidth = false;
-//   }
-
-//   if (weatherBtnEl.classList.contains("tapped")) {
-//     hamburgerBtnEl.style.display = "none"
-//   } else {
-//     hamburgerBtnEl.style.display = "flex"
-//   }
-// })
-
-// hamburgerBtnEl.addEventListener("click", function() {
-
-//   hamburgerBtnEl.classList.toggle("tapped")
-
-//   if (!hamburgerBtnFullWidth) {
-//     document.querySelector("#hamburger-btn.tapped").style.width = (window.innerWidth - 20) + "px";
-//     hamburgerBtnFullWidth = true
-//   } else {
-//     document.querySelector("#hamburger-btn").style.width = ""
-//     hamburgerBtnFullWidth = false;
-//   }
-
-//   if (hamburgerBtnEl.classList.contains("tapped")) {
-//     weatherBtnEl.style.display = "none"
-//   } else {
-//     weatherBtnEl.style.display = "grid"
-//   }
-// })
-
 let weatherExpanded  = false
 let hamburgerExpanded = false
 
