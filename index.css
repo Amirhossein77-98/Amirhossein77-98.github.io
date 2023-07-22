@@ -1070,6 +1070,7 @@ h2 {
         height: 40px;
         max-height: 40px;
         padding: 10px 10px;
+        transition: justify-content 0.5s; 
     }
     
     /* Weather Button Styles */
