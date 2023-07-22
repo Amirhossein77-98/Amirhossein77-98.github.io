@@ -268,7 +268,9 @@ hamburgerBtnEl.addEventListener("touchstart", (e) => {
     document.querySelector("#weather-time-sec").removeAttribute("style");
     hamburgerBtnEl.classList.remove("expanded");
     hamburgerBtnEl.removeAttribute("style");
-    document.querySelector("#header").removeAttribute("style");
+    setTimeout(() => {
+      document.querySelector("#header").removeAttribute("style"); 
+    }, 200);
     hamburgerExpanded = false;
   }
 
