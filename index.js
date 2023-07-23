@@ -9,6 +9,7 @@ const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const workSamplesInDB = ref(database, "work-samples")
 const skillsInDB = ref(database, "skills")
+const certificatesInDB = ref(database, "Certificates")
 let cityLoc = localStorage.getItem("location")
 document.getElementById("loc").textContent = `${cityLoc}`
 
@@ -24,6 +25,7 @@ const slashEl = document.getElementById("slash")
 const eastereggEl = document.getElementById("easteregg")
 const eastereggBtn = document.getElementById("easteregg-btn")
 const greatLessEl = document.querySelectorAll(".greatLessSymbols")
+const certificatesSecEl = document.getElementById("certificates-sec")
 
 // Functions
 function getWeatherData() {
@@ -191,18 +193,19 @@ function animateNumber(element) {
   requestAnimationFrame(() => animateNumber(element))
 }
 
-
-// Observe the element
-
-
-
-
 function placeDetailsInCard(details) {
   cardSecEl.innerHTML += `<div id="card">
                               <img src="${details[2][1]}">
                               <h3>${details[0][1]}</h3>
                               <p>${details[1][1]}</p>
                             </div>`
+}
+
+function placeCertificatesInCards(details) {
+  certificatesSecEl.innerHTML += `<div id="card">
+                                    <img src="${details[0][1]}">
+                                    <h3>${details[1][1]}</h3>
+                                  </div>`
 }
 
 // Getting ip location and weather data
@@ -222,6 +225,15 @@ onValue(workSamplesInDB, function(snapshot) {
   for (let i = 0; i < workSamplesArray.length; i++) {
     const projectDetails = Object.entries(workSamplesArray[i])
     placeDetailsInCard(projectDetails)
+  }
+})
+
+onValue(certificatesInDB, (snapshot) => {
+  let certificatesArray = Object.values(snapshot.val())
+  for (let i = 0; i < certificatesArray.length; i++) {
+    const certificatesDetails = Object.entries(certificatesArray[i])
+    console.log(certificatesDetails)
+    placeCertificatesInCards(certificatesDetails)
   }
 })
 

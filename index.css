@@ -352,7 +352,7 @@ h2 {
 
 #cards-sec {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     overflow-x: scroll;
     height: 600px;
     /* hide scrollbar for Firefox */
@@ -415,7 +415,7 @@ h2 {
 
 #third-sec {
     margin-top: 150px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     display: grid;
     grid-template-columns: 1fr;
     text-align: center;
@@ -474,10 +474,49 @@ h2 {
     border-radius: 100px;
 }
 
+/* Fourth Section General Styles */
+
+#fourth-sec {
+    display: grid;
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#certificates-sec {
+    display: flex;
+    overflow-x: scroll;
+    padding-top: 50px;
+    height: 400px;
+    /* hide scrollbar for Firefox */
+    scrollbar-width: none;
+    /* hide scrollbar for IE and Edge */
+    -ms-overflow-style: none;
+}
+
+#certificates-sec #card {
+    height: 300px;
+    min-width: 300px;
+    min-height: 250px;
+}
+
+#certificates-sec #card img {
+    max-width: 329px !important;
+}
+
+#certificates-sec::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+    background: transparent; 
+  }
+
 /* Footer Styles */
+
 .footer {
     background-color: var(--primary);
-    height: 50px;
     border-radius: 40% 40% 0px 0px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -1123,32 +1162,74 @@ h2 {
         border-radius: 100px;
     }
 
+    /* Fourth Section General Styles */
+
+    #fourth-sec {
+        display: grid;
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        margin-top: 270px;
+    }
+
+    #certificates-sec {
+        display: flex;
+        overflow-x: scroll;
+        padding-top: 40px;
+        height: 400px;
+        /* hide scrollbar for Firefox */
+        scrollbar-width: none;
+        /* hide scrollbar for IE and Edge */
+        -ms-overflow-style: none;
+    }
+
+    #certificates-sec #card {
+        height: 300px;
+        min-width: 300px;
+        min-height: 250px;
+        margin: 0 20px;
+        padding-bottom: 0;
+    }
+
+    #certificates-sec #card img {
+        border-radius: 25px 25px 0px 0px;
+        max-width: 300px !important;
+    }
+
+    #certificates-sec::-webkit-scrollbar {
+        height: 0;
+        width: 0;
+        background: transparent; 
+    }
+
     /* Footer Styles */
+    
     .footer {
         background-color: var(--primary);
         border-radius: 0 0 0px 0px;
         display: flex;
         flex-wrap: wrap;
         color: white;
-        height: auto;
+        height: 600px;
         justify-items: center;
-        margin-top: 250px;
+        margin-top: 0px;
         padding: 30px 10px 0 20px;
     }
 
     #footer-left {
         padding: 20px 50px 0 0;
         justify-content: center;
-        align-items: center;
     }
 
     #footer-center {
         padding: 20px 0px 0 0;
         justify-content: center;
-        align-items: center;
     }
 
     #footer-right {
-        padding: 0px 0px 0 0;
+        display: none;
+        padding: 0;
     }
 }
