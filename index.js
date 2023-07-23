@@ -278,23 +278,29 @@ hamburgerBtnEl.addEventListener("touchstart", (e) => {
     hamburgerBtnEl.removeAttribute("style")
     setTimeout(() => {
       document.querySelector("#header").removeAttribute("style")
-    }, 250);
+    }, 250)
     hamburgerExpanded = false
   }
 })
 
 let easterRevealed = false
 
-eastereggEl.addEventListener("touchstart", (e) => {
+eastereggEl.addEventListener("touchstart", () => {
   if (!easterRevealed) {
     slashEl.style.display = "none"
     eastereggBtn.style.display = "flex"
     easterRevealed = true
+    setTimeout(() => {
+      eastereggBtn.addEventListener("click", () => {
+        window.location.href = "https://github.com/Amirhossein77-98"
+      })
+    }, 250)
+    
   }
 })
 
 for (let element of greatLessEl) {
-  element.addEventListener("touchstart", (e) => {
+  element.addEventListener("touchstart", () => {
     if (easterRevealed) {
       eastereggBtn.style.animationName = "ButtonShrinker"
       eastereggBtn.style.animationDuration = "0.5s"
