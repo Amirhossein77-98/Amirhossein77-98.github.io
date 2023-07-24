@@ -90,7 +90,6 @@ function timeUpdate() {
   
   let timeout = (60 - now.getSeconds()) * 1000
   setTimeout(timeUpdate, timeout)
-
 }
 
 function isInView(element) {
@@ -144,6 +143,7 @@ const observer = new IntersectionObserver((entries) => {
   }
 })
 
+
 let skillsArrayForAnimate = []
 
 // Define a callback function that takes an array as an argument
@@ -156,16 +156,6 @@ function logSkills(array) {
     observer.observe(obj)
   }
 }
-
-onValue(skillsInDB, function(snapshot) {
-  let skillsArray = Object.entries(snapshot.val())
-  for (let i = 0; i < skillsArray.length; i++) {
-    addSkillsToTheList(skillsArray[i])
-    skillsArrayForAnimate.push(skillsArray[i])
-  }
-  // Call the callback function and pass the skillsArrayForAnimate array to it
-  logSkills(skillsArrayForAnimate)
-})
 
 // const percent = skillsSecEl.querySelector(`#${id}`)
 
@@ -208,6 +198,33 @@ function placeCertificatesInCards(details) {
                                   </div>`
 }
 
+function scrollabilityForCardsInPCScreens(elementsArray) {
+  let isDown = false
+  let startX
+  let scrollLeft
+  
+  for (let i = 0; i < elementsArray.length; i++) {
+    elementsArray[i].addEventListener("mousedown", (e) => { 
+      isDown = true
+      startX = e.pageX - elementsArray[i].offsetLeft
+      scrollLeft = elementsArray[i].scrollLeft
+    })
+    elementsArray[i].addEventListener("mouseleave", () => {
+      isDown = false
+    })
+    elementsArray[i].addEventListener("mouseup", () => {
+      isDown = false
+    })
+    elementsArray[i].addEventListener("mousemove", (e) => {
+      if (!isDown) return
+      e.preventDefault()
+      const x = e.pageX - elementsArray[i].offsetLeft
+      const walk = (x - startX) * 3
+      elementsArray[i].scrollLeft = scrollLeft - walk
+    })
+  }
+}
+
 // Getting ip location and weather data
 if (localStorage.getItem("temp") != null) {
   if (minutesFromBeginningOfDay - Number(localStorage.getItem("lastUpdate")) > 60) {
@@ -218,23 +235,6 @@ if (localStorage.getItem("temp") != null) {
 } else {
   getWeatherData()
 }
-
-// Fetching data from database
-onValue(workSamplesInDB, function(snapshot) {
-  let workSamplesArray = Object.values(snapshot.val())
-  for (let i = 0; i < workSamplesArray.length; i++) {
-    const projectDetails = Object.entries(workSamplesArray[i])
-    placeDetailsInCard(projectDetails)
-  }
-})
-
-onValue(certificatesInDB, (snapshot) => {
-  let certificatesArray = Object.values(snapshot.val())
-  for (let i = 0; i < certificatesArray.length; i++) {
-    const certificatesDetails = Object.entries(certificatesArray[i])
-    placeCertificatesInCards(certificatesDetails)
-  }
-})
 
 let weatherExpanded  = false
 let hamburgerExpanded = false
@@ -323,48 +323,37 @@ for (let element of greatLessEl) {
   })
 }
 
-let isDown = false
-let startX
-let scrollLeft
+// Fetching data from database
 
-certificatesSecEl.addEventListener("mousedown", (e) => { 
-  isDown = true; startX = e.pageX - certificatesSecEl.offsetLeft
-  scrollLeft = certificatesSecEl.scrollLeft
+onValue(skillsInDB, function(snapshot) {
+  let skillsArray = Object.entries(snapshot.val())
+  for (let i = 0; i < skillsArray.length; i++) {
+    addSkillsToTheList(skillsArray[i])
+    skillsArrayForAnimate.push(skillsArray[i])
+  }
+  // Call the callback function and pass the skillsArrayForAnimate array to it
+  logSkills(skillsArrayForAnimate)
 })
-certificatesSecEl.addEventListener("mouseleave", () => {
-  isDown = false
-})
-certificatesSecEl.addEventListener("mouseup", () => {
-  isDown = false
-})
-certificatesSecEl.addEventListener("mousemove", (e) => {
-  if (!isDown) return
-  e.preventDefault()
-  const x = e.pageX - certificatesSecEl.offsetLeft
-  const walk = (x - startX) * 3
-  certificatesSecEl.scrollLeft = scrollLeft - walk
+// Fetching data from database
+onValue(workSamplesInDB, function(snapshot) {
+  let workSamplesArray = Object.values(snapshot.val())
+  for (let i = 0; i < workSamplesArray.length; i++) {
+    const projectDetails = Object.entries(workSamplesArray[i])
+    placeDetailsInCard(projectDetails)
+  }
 })
 
-cardSecEl.addEventListener("mousedown", (e) => { 
-  isDown = true; startX = e.pageX - cardSecEl.offsetLeft
-  scrollLeft = cardSecEl.scrollLeft
-})
-cardSecEl.addEventListener("mouseleave", () => {
-  isDown = false
-})
-cardSecEl.addEventListener("mouseup", () => {
-  isDown = false
-})
-cardSecEl.addEventListener("mousemove", (e) => {
-  if (!isDown) return
-  e.preventDefault()
-  const x = e.pageX - cardSecEl.offsetLeft
-  const walk = (x - startX) * 3
-  cardSecEl.scrollLeft = scrollLeft - walk
+onValue(certificatesInDB, (snapshot) => {
+  let certificatesArray = Object.values(snapshot.val())
+  for (let i = 0; i < certificatesArray.length; i++) {
+    const certificatesDetails = Object.entries(certificatesArray[i])
+    placeCertificatesInCards(certificatesDetails)
+  }
 })
 
 timeUpdate()
 checkReveals()
 checkBars()
+scrollabilityForCardsInPCScreens([cardSecEl, certificatesSecEl])
 window.addEventListener("scroll", checkReveals)
 window.addEventListener("scroll", checkBars)
