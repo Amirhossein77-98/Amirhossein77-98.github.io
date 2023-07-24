@@ -232,7 +232,6 @@ onValue(certificatesInDB, (snapshot) => {
   let certificatesArray = Object.values(snapshot.val())
   for (let i = 0; i < certificatesArray.length; i++) {
     const certificatesDetails = Object.entries(certificatesArray[i])
-    console.log(certificatesDetails)
     placeCertificatesInCards(certificatesDetails)
   }
 })
@@ -297,7 +296,7 @@ hamburgerBtnEl.addEventListener("touchstart", (e) => {
 
 let easterRevealed = false
 
-eastereggEl.addEventListener("touchstart", () => {
+eastereggEl.addEventListener("click", () => {
   if (!easterRevealed) {
     slashEl.style.display = "none"
     eastereggBtn.style.display = "flex"
@@ -312,7 +311,7 @@ eastereggEl.addEventListener("touchstart", () => {
 })
 
 for (let element of greatLessEl) {
-  element.addEventListener("touchstart", () => {
+  element.addEventListener("click", () => {
     if (easterRevealed) {
       eastereggBtn.style.animationName = "ButtonShrinker"
       eastereggBtn.style.animationDuration = "0.5s"
@@ -323,6 +322,46 @@ for (let element of greatLessEl) {
     }
   })
 }
+
+let isDown = false
+let startX
+let scrollLeft
+
+certificatesSecEl.addEventListener("mousedown", (e) => { 
+  isDown = true; startX = e.pageX - certificatesSecEl.offsetLeft
+  scrollLeft = certificatesSecEl.scrollLeft
+})
+certificatesSecEl.addEventListener("mouseleave", () => {
+  isDown = false
+})
+certificatesSecEl.addEventListener("mouseup", () => {
+  isDown = false
+})
+certificatesSecEl.addEventListener("mousemove", (e) => {
+  if (!isDown) return
+  e.preventDefault()
+  const x = e.pageX - certificatesSecEl.offsetLeft
+  const walk = (x - startX) * 3
+  certificatesSecEl.scrollLeft = scrollLeft - walk
+})
+
+cardSecEl.addEventListener("mousedown", (e) => { 
+  isDown = true; startX = e.pageX - cardSecEl.offsetLeft
+  scrollLeft = cardSecEl.scrollLeft
+})
+cardSecEl.addEventListener("mouseleave", () => {
+  isDown = false
+})
+cardSecEl.addEventListener("mouseup", () => {
+  isDown = false
+})
+cardSecEl.addEventListener("mousemove", (e) => {
+  if (!isDown) return
+  e.preventDefault()
+  const x = e.pageX - cardSecEl.offsetLeft
+  const walk = (x - startX) * 3
+  cardSecEl.scrollLeft = scrollLeft - walk
+})
 
 timeUpdate()
 checkReveals()
