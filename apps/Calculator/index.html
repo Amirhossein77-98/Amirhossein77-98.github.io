@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+	<h1 id="title">Calculator</h1>
+    <div id="num-field">
+        <input id="input" autofocus>
+        <div id="del-btns">
+            <button id="delete" value="delete" onclick="deleteLastNum()">⇍</button>
+            <button id="clear" value="clear" onclick="clearAll()">C</button>
+        </div>
+    </div>
+    <div id="btn-container">
+        <div id="num-btns"></div>
+        <div id="operators-btn">
+            <button id="plus" value="+" onClick='operator(this.value)'>+</button>
+            <button id="minus" value="-" onClick='operator(this.value)'>-</button>
+            <button id="multi" value="*" onClick='operator(this.value)'>*</button>
+            <button id="divide" value="/" onClick='operator(this.value)'>/</button>
+            <button id="pow" value="**" onClick='operator(this.value)'>pow</button>
+            <button id="rem" value="%" onClick='operator(this.value)'>%</button>
+        </div>
+        <div id="last-row"></div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

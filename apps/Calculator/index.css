@@ -1,0 +1,162 @@
+body {
+    max-width: 440px;
+    max-height: 640px;
+    text-align: center;
+    background-image: linear-gradient(to bottom right, rgb(207, 162, 162), rgb(89, 172, 197));
+    user-select: none;
+    margin: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#num-field {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    gap: 5px;
+    margin-top: 50px;
+    margin-right: 3px;
+}
+
+#btn-container {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    gap: 10px;
+}
+
+#operators-btn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-right: 10px;
+}
+
+#num-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+}
+
+button {
+    background-color: whitesmoke;
+    padding: 10px;
+    height: 70px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: large;
+    font-family:'Courier New', Courier, monospace;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+button:hover {
+    background-color: rgb(232, 232, 232);
+}
+
+button:active {
+    background-color: rgb(163, 163, 163);
+}
+
+#delete {
+    padding: 0px;
+    height: 31px;
+    background-color: brown;
+    font-size: 30px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+#delete:hover {
+    background-color: rgb(119, 28, 28);
+}
+
+#delete:active {
+    background-color: rgb(81, 18, 18);
+}
+
+#clear {
+    padding: 0px;
+    height: 31px;
+    background-color: brown;
+    font-size: 30px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    margin-top: -18px
+}
+
+#clear:hover {
+    background-color: rgb(119, 28, 28);
+}
+
+#clear:active {
+    background-color: rgb(81, 18, 18);
+}
+
+#del-btns {
+    display: grid;
+    gap: 0px;
+}
+
+#input {
+    margin-bottom: 20px;
+    background-color:whitesmoke;
+    border: none;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#title {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 1px 0px 4px rgba(112, 112, 112, 0.523);
+    font-size: 39px;
+}
+
+#last-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+    margin-top: -5px;
+}
+
+#last-row #result {
+    width: 233%;
+    background-color: rgb(237, 224, 224);
+    font-size: 40px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+#last-row #result:hover {
+    background-color: rgb(223, 212, 212);
+}
+
+#last-row #result:active {
+    background-color: rgb(199, 180, 180);
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    #operators-btn {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        gap: 5px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    body {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    #operators-btn {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        gap: 5px;
+    }
+}
