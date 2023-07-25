@@ -13,7 +13,7 @@ body {
     display: flex;
     width: 97.9%;
     height: 60px;
-    border: 2px black solid;
+    border: 2px rgba(28, 28, 28, 0.84) solid;
     padding: 10px 15px;
     align-items: center;
     justify-content: space-between;
@@ -42,7 +42,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    border: 2px black solid;
+    border: 2px rgba(28, 28, 28, 0.84) solid;
     border-radius: 0px 20px 0px 0px;
     width: 10%;
     height: 87vh;
@@ -70,6 +70,66 @@ body {
     display: inline-block;
     border-radius: 20px 0px 0px 0px;
     width: 90%;
-    border: 2px black solid;
-    padding: 10px;
+    border: 2px rgba(28, 28, 28, 0.84) solid;
+    padding: 50px;
+}
+
+.todo-item {
+    display: flex;
+    padding: 15px 0px;
+    width: 100%;
+    border-bottom: 1px rgb(67, 67, 67) solid;
+    font-size: 18px;
+}
+
+.check-box {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.check-box input {
+    display: none;
+}
+
+.check-box span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(77, 77, 77);
+    border-radius: 8px;
+    background-color: #93939353;
+}
+
+.check-box:hover span {
+    background-color: #5e5e5e53;
+}
+
+.check-box input:checked + span {
+    background-color: rgb(0, 0, 64);
+}
+
+.check-box input:checked + span::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+@media only screen and (max-width: 768px) {
+    #topbar {
+        width: 91.5%;
+    }
+    .left-panel-items #today {
+        content: "<ion-icon name='today-outline'></ion-icon>";
+    }
 }
