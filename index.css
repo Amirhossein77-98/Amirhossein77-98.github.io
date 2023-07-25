@@ -509,11 +509,12 @@ h2 {
 #certificates-sec #card {
     height: 300px;
     min-width: 329px;
+    max-width: 329px;
     min-height: 250px;
 }
 
 #certificates-sec #card img {
-    max-width: 333px !important;
+    max-width: 329px !important;
 }
 
 #certificates-sec::-webkit-scrollbar {
