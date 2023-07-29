@@ -351,6 +351,34 @@ onValue(certificatesInDB, (snapshot) => {
   }
 })
 
+const loginBtn = document.getElementById("login-btn")
+const loginPopup = document.getElementById("login-container")
+
+// window.onload(() => {
+//     loginBtn.addEventListener("click", () => {
+//         loginModal.classList.add("open")
+//     })
+// })
+
+loginPopup.style.display = "none";
+
+// Add an event listener to the button
+loginBtn.addEventListener("click", function () {
+  // Toggle the popup display
+  if (loginPopup.style.display === "none") {
+    fetch("/modules/signinup/signinup.html")
+      .then(response => response.text())
+      .then(html => {
+    document.getElementById("login-container").innerHTML = html
+  })
+    loginPopup.style.display = "flex";
+  } else {
+    loginPopup.style.display = "none";
+  }
+});
+
+
+
 timeUpdate()
 checkReveals()
 checkBars()

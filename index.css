@@ -547,7 +547,16 @@ h2 {
     padding: 110px 200px 0 0;
 }
 
-
+#login-container {
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 70%;
+    top: 8%;
+    left: 35%;
+    z-index: 1000;
+  }
 
 /* Keyframes */
 
