@@ -278,7 +278,6 @@ hamburgerBtnEl.addEventListener("touchstart", (e) => {
     hamburgerBtnEl.classList.add("tapped")
     hamburgerBtnEl.style.width = (window.innerWidth - 50) + "px"
     document.querySelector("#header").style.justifyContent = "end"
-    // document.querySelector(".menu-items").style.display = "flex"
     hamburgerExpanded = true
   } else {
     // Shrink hamburger button
@@ -366,6 +365,7 @@ loginBtn.addEventListener("click", function () {
       .then(html => {
     document.getElementById("login-container").innerHTML = html
     document.querySelector("#signupModal").style.display = "none"
+    loginPopup.style.display = "flex";
 
     document.getElementById("signupq-btn").addEventListener("click", () => {
       document.querySelector("#loginModal").style.display = "none"
@@ -377,7 +377,6 @@ loginBtn.addEventListener("click", function () {
       })
     })
   })
-    loginPopup.style.display = "flex";
     setTimeout(() => {
       document.addEventListener("click", (e) => {
         if(e.target.closest('#login-container')) {
