@@ -354,11 +354,6 @@ onValue(certificatesInDB, (snapshot) => {
 const loginBtn = document.getElementById("login-btn")
 const loginPopup = document.getElementById("login-container")
 
-// window.onload(() => {
-//     loginBtn.addEventListener("click", () => {
-//         loginModal.classList.add("open")
-//     })
-// })
 
 loginPopup.style.display = "none";
 
@@ -370,8 +365,28 @@ loginBtn.addEventListener("click", function () {
       .then(response => response.text())
       .then(html => {
     document.getElementById("login-container").innerHTML = html
+    document.querySelector("#signupModal").style.display = "none"
+
+    document.getElementById("signupq-btn").addEventListener("click", () => {
+      document.querySelector("#loginModal").style.display = "none"
+      document.querySelector("#signupModal").style.display = "flex"
+      
+      document.getElementById("signinq-btn").addEventListener("click", () => {
+        document.querySelector("#loginModal").style.display = "flex"
+        document.querySelector("#signupModal").style.display = "none"
+      })
+    })
   })
     loginPopup.style.display = "flex";
+    setTimeout(() => {
+      document.addEventListener("click", (e) => {
+        if(e.target.closest('#login-container')) {
+          e.stopPropagation();
+          return;
+        }
+        loginPopup.style.display = "none";
+      })
+    }, 500)
   } else {
     loginPopup.style.display = "none";
   }

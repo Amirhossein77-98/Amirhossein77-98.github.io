@@ -1,4 +1,4 @@
-.loginModal {
+.loginForm {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,25 +11,49 @@
     backdrop-filter: blur(18px);
 }
 
-form {
+.loginForm form {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 50%;
 }
 
-input {
+.loginForm form section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.loginForm form input {
     border-radius: 8px;
     padding: 9px;
     border: 0;
-    box-shadow: black 0px 0px 4px;
+    box-shadow: #00000054 0px 0px 4px;
+    background-color: #ffffffa8;
 }
 
-button {
+.loginForm form button {
     border-radius: 10px;
     padding: 9px 20px;
     width: fit-content;
     background-color: #d1d1d1;
     border: 0;
-    box-shadow: black 0px 0px 5px;
+    box-shadow: #00000054 0px 0px 5px;
+}
+
+.loginForm form button:hover {
+    background-color: #c0c0c0;
+}
+
+.loginForm div#signupq {
+    margin-top: 20px;
+}
+
+.loginForm div#signupq button {
+    background-color: #ffffff00;
+    border-width: 1px;
+    border-style: solid;
+    box-shadow: 0 0 0 0;
+    padding: 15px;
+    font-weight: bold;
 }
