@@ -32,9 +32,20 @@ body {
     color: rgb(197, 197, 197);
 }
 
-#menu {
+#menu-btn {
     font-size: 25px;
     padding-right: 16px;
+}
+
+#menu {
+    position:fixed;
+    z-index: 1000;
+    background-color: #ffffff9d;
+    width: 300px;
+    height: 300px;
+    left: 79.2%;
+    top: 8%;
+    border-radius: 10px;
 }
 
 #container {

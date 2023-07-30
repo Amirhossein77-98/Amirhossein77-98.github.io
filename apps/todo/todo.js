@@ -41,3 +41,44 @@ window.addEventListener("resize", ()=> {
     }
 })
 
+const menuBtn = document.getElementById("menu-btn")
+const menuPopup = document.getElementById("menu")
+
+
+menuPopup.style.display = "none";
+
+// Add an event listener to the button
+menuBtn.addEventListener("click", function () {
+  // Toggle the popup display
+  if (menuPopup.style.display === "none") {
+    fetch("../../modules/signinup/signinup.html")
+      .then(response => response.text())
+      .then(html => {
+    document.getElementById("menu").innerHTML = html
+    document.querySelector("#signupModal").style.display = "none"
+    document.querySelector("form").style.width = "78%"
+    menuPopup.style.display = "flex";
+
+    document.getElementById("signupq-btn").addEventListener("click", () => {
+      document.querySelector("#loginModal").style.display = "none"
+      document.querySelector("#signupModal").style.display = "flex"
+      
+      document.getElementById("signinq-btn").addEventListener("click", () => {
+        document.querySelector("#loginModal").style.display = "flex"
+        document.querySelector("#signupModal").style.display = "none"
+      })
+    })
+  })
+    setTimeout(() => {
+      document.addEventListener("click", (e) => {
+        if(e.target.closest('#menu')) {
+          e.stopPropagation();
+          return;
+        }
+        menuPopup.style.display = "none";
+      })
+    }, 500)
+  } else {
+    menuPopup.style.display = "none";
+  }
+});
