@@ -1,27 +1,28 @@
 <link rel="stylesheet" type="text/css" href="/modules/signinup/signinup.css">
-
-<div id="loginModal" class="loginForm">
-    <div id="head"><h2>LogIn</h2></div>
-    <form method="post">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <section><button id="signin">SignIn</button> <div id="forgot">Forgot Password?</div></section>
-    </form>
-    <div id="signupq">
-        <button id="signupq-btn">Don't have an account? SignUp!</button>
+<body>
+    <div id="loginModal" class="loginForm">
+        <div id="head"><h2>LogIn</h2></div>
+        <form method="post">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <section><button id="signin">SignIn</button> <div id="forgot">Forgot Password?</div></section>
+        </form>
+        <div id="signupq">
+            <button id="signupq-btn">Don't have an account? SignUp!</button>
+        </div>
     </div>
-</div>
-
-<div id="signupModal" class="loginForm">
-    <div id="head"><h2>SignUp</h2></div>
-    <form method="post">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button>SignUp</button>
-    </form>
-    <div id="signupq">
-        <button id="signinq-btn">Signed Up before? LogIn now!</button>
+    
+    <div id="signupModal" class="loginForm">
+        <div id="head"><h2>SignUp</h2></div>
+        <form method="post">
+            <input id="email-reg" type="email" name="email" placeholder="Email" required>
+            <input id="pass-reg" type="password" name="password" placeholder="Password" required>
+            <button id="signup-btn">SignUp</button>
+        </form>
+        <div id="signupq">
+            <button id="signinq-btn">Signed Up before? LogIn now!</button>
+        </div>
     </div>
-</div>
+    <script type="module" src="signinup.js"></script>
+</body>
 
-<!-- <script src="signinup.js"></script> -->

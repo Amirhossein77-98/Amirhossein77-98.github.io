@@ -38,6 +38,7 @@ body {
 }
 
 #menu {
+    display: none;
     position:fixed;
     z-index: 1000;
     background-color: #ffffff9d;

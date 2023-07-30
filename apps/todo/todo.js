@@ -63,6 +63,15 @@ menuBtn.addEventListener("click", function () {
       document.querySelector("#loginModal").style.display = "none"
       document.querySelector("#signupModal").style.display = "flex"
       
+      document.getElementById("signup-btn").addEventListener("click", (e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          let email = document.getElementById("email-reg").value
+          let pass = document.getElementById("pass-reg").value
+          console.log(email)
+          console.log(pass)
+      })
+      
       document.getElementById("signinq-btn").addEventListener("click", () => {
         document.querySelector("#loginModal").style.display = "flex"
         document.querySelector("#signupModal").style.display = "none"
