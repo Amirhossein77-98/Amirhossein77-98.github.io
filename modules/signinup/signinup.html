@@ -2,10 +2,10 @@
 <body>
     <div id="loginModal" class="loginForm">
         <div id="head"><h2>LogIn</h2></div>
-        <form method="post">
+        <form id="signin-form">
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
-            <section><button id="signin">SignIn</button> <div id="forgot">Forgot Password?</div></section>
+            <section><button type="submit" id="signin">SignIn</button> <div id="forgot">Forgot Password?</div></section>
         </form>
         <div id="signupq">
             <button id="signupq-btn">Don't have an account? SignUp!</button>
@@ -14,15 +14,18 @@
     
     <div id="signupModal" class="loginForm">
         <div id="head"><h2>SignUp</h2></div>
-        <form method="post">
+        <form id="signup-form">
             <input id="email-reg" type="email" name="email" placeholder="Email" required>
             <input id="pass-reg" type="password" name="password" placeholder="Password" required>
-            <button id="signup-btn">SignUp</button>
+            <button type="submit" id="signup-btn">SignUp</button>
         </form>
         <div id="signupq">
             <button id="signinq-btn">Signed Up before? LogIn now!</button>
         </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"></script>
     <script type="module" src="signinup.js"></script>
 </body>
 

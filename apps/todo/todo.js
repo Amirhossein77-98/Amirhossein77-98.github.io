@@ -1,3 +1,23 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB0BxcI8YwOjx8An2axUG9UaTFxHk4KB0w",
+  authDomain: "personal-website-9f744.firebaseapp.com",
+  databaseURL: "https://personal-website-9f744-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "personal-website-9f744",
+  storageBucket: "personal-website-9f744.appspot.com",
+  messagingSenderId: "311221710863",
+  appId: "1:311221710863:web:86ae837e0292369722f37a",
+  measurementId: "G-T681TL06WT"
+};
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+const auth = getAuth()
+
+
 const itemsSecEl = document.getElementById("right-panel")
 const addBtnEl = document.getElementById("add")
 const todayBtnEl = document.getElementById("today")
@@ -62,14 +82,12 @@ menuBtn.addEventListener("click", function () {
     document.getElementById("signupq-btn").addEventListener("click", () => {
       document.querySelector("#loginModal").style.display = "none"
       document.querySelector("#signupModal").style.display = "flex"
-      
-      document.getElementById("signup-btn").addEventListener("click", (e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          let email = document.getElementById("email-reg").value
-          let pass = document.getElementById("pass-reg").value
-          console.log(email)
-          console.log(pass)
+
+      document.getElementById("signup-form").addEventListener("submit", (e) => {
+        e.preventDefault()
+        var email = document.getElementById("email-reg").value
+        var password = document.getElementById("pass-reg").value
+        signUp(email, password)
       })
       
       document.getElementById("signinq-btn").addEventListener("click", () => {
@@ -91,3 +109,27 @@ menuBtn.addEventListener("click", function () {
     menuPopup.style.display = "none";
   }
 });
+
+function logIn(email, password) {
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user
+  })
+  .catch((error) => {
+    const errorCode = error.errorCode
+    const errorMessage = error.errorMessage
+    console.log(errorMessage)
+  })
+}
+
+function signUp(email, password) {
+  createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user
+  })
+  .catch((error) => {
+    const errorCode = error.errorCode
+    const errorMessage = error.errorMessage
+    console.log(errorMessage)
+  })
+}
