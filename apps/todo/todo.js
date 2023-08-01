@@ -79,6 +79,12 @@ menuBtn.addEventListener("click", function () {
     document.querySelector("form").style.width = "78%"
     menuPopup.style.display = "flex";
 
+    document.getElementById("signin-form").addEventListener("submit", (e) => {
+      e.preventDefault()
+      var email = document.getElementById("email-login").value
+      var password = document.getElementById("password-login").value
+      logIn(email, password)
+
     document.getElementById("signupq-btn").addEventListener("click", () => {
       document.querySelector("#loginModal").style.display = "none"
       document.querySelector("#signupModal").style.display = "flex"
@@ -93,6 +99,7 @@ menuBtn.addEventListener("click", function () {
       document.getElementById("signinq-btn").addEventListener("click", () => {
         document.querySelector("#loginModal").style.display = "flex"
         document.querySelector("#signupModal").style.display = "none"
+        })
       })
     })
   })
@@ -114,6 +121,7 @@ function logIn(email, password) {
   signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user
+    alert(`User ${user.uid} logged in successfully`)
   })
   .catch((error) => {
     const errorCode = error.errorCode
@@ -126,10 +134,12 @@ function signUp(email, password) {
   createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user
+    alert(`User registered successfully`)
   })
   .catch((error) => {
     const errorCode = error.errorCode
     const errorMessage = error.errorMessage
+    console.log(errorCode)
     console.log(errorMessage)
   })
 }
