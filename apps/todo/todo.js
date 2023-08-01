@@ -84,6 +84,7 @@ menuBtn.addEventListener("click", function () {
       var email = document.getElementById("email-login").value
       var password = document.getElementById("password-login").value
       logIn(email, password)
+    })
 
     document.getElementById("signupq-btn").addEventListener("click", () => {
       document.querySelector("#loginModal").style.display = "none"
@@ -101,7 +102,6 @@ menuBtn.addEventListener("click", function () {
         document.querySelector("#signupModal").style.display = "none"
         })
       })
-    })
   })
     setTimeout(() => {
       document.addEventListener("click", (e) => {
