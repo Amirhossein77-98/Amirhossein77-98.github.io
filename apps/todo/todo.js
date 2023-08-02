@@ -102,7 +102,7 @@ menuBtn.addEventListener("click", function () {
         document.querySelector("#signupModal").style.display = "none"
         })
       })
-  })
+    })
     setTimeout(() => {
       document.addEventListener("click", (e) => {
         if(e.target.closest('#menu')) {
@@ -143,3 +143,23 @@ function signUp(email, password) {
     console.log(errorMessage)
   })
 }
+
+const addPopup = document.getElementById("add-popup")
+addPopup.style.display = "none"
+
+addBtnEl.addEventListener("click", () => {
+  if (addPopup.style.display = "none") {
+    addPopup.style.display = "flex"
+    setTimeout(() => {
+      document.addEventListener("click", (e) => {
+        if (e.target.closest("#add-popup")) {
+          e.stopPropagation()
+          return
+        }
+        addPopup.style.display = "none"
+      })
+    }, 500)
+  } else {
+    addPopup.style.display = "none"
+  }
+})
