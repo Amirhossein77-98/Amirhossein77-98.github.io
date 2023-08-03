@@ -148,18 +148,16 @@ const addPopup = document.getElementById("add-popup")
 addPopup.style.display = "none"
 
 addBtnEl.addEventListener("click", () => {
-  if (addPopup.style.display = "none") {
+  console.log("Clicked")
+  if (addPopup.style.display === "none") {
     addPopup.style.display = "flex"
-    setTimeout(() => {
-      document.addEventListener("click", (e) => {
-        if (e.target.closest("#add-popup")) {
-          e.stopPropagation()
-          return
-        }
-        addPopup.style.display = "none"
-      })
-    }, 500)
   } else {
+    addPopup.style.display = "none"
+  }
+})
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("#add-popup") && e.target !== addBtnEl) {
     addPopup.style.display = "none"
   }
 })
