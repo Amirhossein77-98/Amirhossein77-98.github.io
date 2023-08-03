@@ -23,13 +23,20 @@
                 <section class="left-panel-items" id="ideas"><ion-icon name='flash-outline'></ion-icon>Ideas</section>
             </div>
             <div id="right-panel">
-                <span class="todo-item">
-                    <label class="check-box">
-                        <input type="checkbox">
-                        <span></span>
-                        gi
-                    </label>
-                </span>
+                <div id="items-title">
+                    <span>Title</span>
+                    <span>Description</span>
+                </div>
+                <div id="items-sec">
+                    <span class="todo-item">
+                        <label class="check-box">
+                            <input type="checkbox">
+                            <span></span>
+                            gi
+                        </label>
+                        kesh
+                    </span>
+                </div>
             </div>
         </div>
         <div id="add-popup">
@@ -38,6 +45,11 @@
                 <input type="text" id="todo-title-input" placeholder="e.g: Buy Groceries" required>
                 <label>Description</label>
                 <input type="text" id="todo-desc-input" placeholder="e.g: carrot, cucumber, ...">
+                <ul>
+                    <li><input type="checkbox" id="today-checkbox">Today</li>
+                    <li><input type="checkbox" id="shopping-checkbox">Shopping List</li>
+                    <li><input type="checkbox" id="ideas-checkbox">Ideas</li>
+                </ul>
                 <button type="submit">Add</button>
             </form>
         </div>

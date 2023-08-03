@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
+import { getDatabase, ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -16,9 +16,10 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 const auth = getAuth()
+const db = getDatabase()
 
 
-const itemsSecEl = document.getElementById("right-panel")
+const itemsSecEl = document.getElementById("items-sec")
 const addBtnEl = document.getElementById("add")
 const todayBtnEl = document.getElementById("today")
 const shoppingBtnEl = document.getElementById("shop")
@@ -121,7 +122,7 @@ function logIn(email, password) {
   signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user
-    alert(`User ${user.uid} logged in successfully`)
+    localStorage.setItem("user", user.uid)
   })
   .catch((error) => {
     const errorCode = error.errorCode
@@ -134,13 +135,10 @@ function signUp(email, password) {
   createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user
-    alert(`User registered successfully`)
+    localStorage.setItem("user", user.uid)
   })
   .catch((error) => {
-    const errorCode = error.errorCode
-    const errorMessage = error.errorMessage
-    console.log(errorCode)
-    console.log(errorMessage)
+    console.log(error)
   })
 }
 
@@ -148,7 +146,6 @@ const addPopup = document.getElementById("add-popup")
 addPopup.style.display = "none"
 
 addBtnEl.addEventListener("click", () => {
-  console.log("Clicked")
   if (addPopup.style.display === "none") {
     addPopup.style.display = "flex"
   } else {
@@ -161,3 +158,80 @@ document.addEventListener("click", (e) => {
     addPopup.style.display = "none"
   }
 })
+
+const todayCheckbox = document.getElementById("today-checkbox")
+const shoppingCheckbox = document.getElementById("shopping-checkbox")
+const ideasCheckbox = document.getElementById("ideas-checkbox")
+
+document.getElementById("add-form").addEventListener("submit", (e) => {
+  e.preventDefault()
+  const title = document.getElementById("todo-title-input").value
+  const description = document.getElementById("todo-desc-input").value
+
+  let tags = []
+
+  if (todayCheckbox.checked) {
+    tags.push("today")
+  }
+  if (shoppingCheckbox.checked) {
+    tags.push("shopping")
+  }
+  if (ideasCheckbox.checked) {
+    tags.push("ideas")
+  }
+
+  saveTodo(title, description, tags)
+})
+
+function saveTodo(title, desc, tags) {
+
+  if (localStorage.getItem("user")) {
+    var userTodoRef = ref(db, `users/${localStorage.getItem("user")}/todos/${title}`)
+  }
+
+  set(userTodoRef, {
+    desc,
+    tags
+  });
+
+}
+
+function getTodos() {
+
+  const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos`);
+
+  return get(userTodosRef).then(snapshot => {
+
+    let todos = [];
+
+    snapshot.forEach(childSnapshot => {
+      todos.push({
+        id: childSnapshot.key,  
+        ...childSnapshot.val()
+      });
+    });
+
+    return todos;
+
+  });
+
+}
+
+getTodos().then(todos => {
+
+  let html = '';
+
+  todos.forEach(todo => {
+    html += `<span class="todo-item">
+              <label class="check-box">
+                  <input type="checkbox">
+                  <span></span>
+                  ${todo.id}
+              </label>
+              ${todo.description}
+          </span>`;
+  });
+
+  itemsSecEl.innerHTML = html;
+
+});
