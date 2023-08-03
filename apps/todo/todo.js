@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
-import { getDatabase, ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
+import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -191,25 +191,26 @@ function saveTodo(title, desc, tags) {
 
   set(userTodoRef, {
     desc,
-    tags
-  });
+    tags,
+    status: "undone"
+  })
 
 }
 
 function getTodos() {
 
-  const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos`);
+  const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos`)
 
   return get(userTodosRef).then(snapshot => {
 
-    let todos = [];
+    let todos = []
 
     snapshot.forEach(childSnapshot => {
       todos.push({
         id: childSnapshot.key,  
         ...childSnapshot.val()
-      });
-    });
+      })
+    })
 
     return todos;
 
@@ -219,19 +220,43 @@ function getTodos() {
 
 getTodos().then(todos => {
 
-  let html = '';
+  let html = ''
 
   todos.forEach(todo => {
-    html += `<span class="todo-item">
+    html += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
               <label class="check-box">
-                  <input type="checkbox">
+                  <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "-")}">
                   <span></span>
                   ${todo.id}
               </label>
               ${todo.description}
-          </span>`;
-  });
+          </span>`
+  })
 
-  itemsSecEl.innerHTML = html;
+  itemsSecEl.innerHTML = html
 
-});
+  attachCheckListeners()
+
+})
+
+function attachCheckListeners() {
+  const checkboxes = document.querySelectorAll('.items-checkbox')
+  const doneItemsEl = document.getElementById('done-items')
+
+  checkboxes.forEach(box => {
+    box.addEventListener('change', (event) => {
+      if (event.target.checked) {
+        console.log("Checked")
+        console.log(box.value)
+        const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos`)
+        const todoItem = event.target.closest('.todo-item')
+        doneItemsEl.appendChild(todoItem)
+        event.target.checked = true
+        
+        set(userTodosRef, {
+          status: "done"
+        })
+      }
+    })
+  })
+}
