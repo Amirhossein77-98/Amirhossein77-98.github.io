@@ -63,23 +63,23 @@ window.addEventListener("resize", ()=> {
     }
 })
 
-const menuBtn = document.getElementById("menu-btn")
-const menuPopup = document.getElementById("menu")
+const userBtn = document.getElementById("user-sec")
+const loginRegisterPopup = document.getElementById("login-register-popup")
 
 
-menuPopup.style.display = "none";
+loginRegisterPopup.style.display = "none";
 
 // Add an event listener to the button
-menuBtn.addEventListener("click", function () {
+userBtn.addEventListener("click", function () {
   // Toggle the popup display
-  if (menuPopup.style.display === "none") {
+  if (loginRegisterPopup.style.display === "none") {
     fetch("../../modules/signinup/signinup.html")
       .then(response => response.text())
       .then(html => {
-    document.getElementById("menu").innerHTML = html
+    document.getElementById("login-register-popup").innerHTML = html
     document.querySelector("#signupModal").style.display = "none"
     document.querySelector("form").style.width = "78%"
-    menuPopup.style.display = "flex";
+    loginRegisterPopup.style.display = "flex";
 
     document.getElementById("signin-form").addEventListener("submit", (e) => {
       e.preventDefault()
@@ -94,9 +94,10 @@ menuBtn.addEventListener("click", function () {
 
       document.getElementById("signup-form").addEventListener("submit", (e) => {
         e.preventDefault()
+        var name = document.getElementById("name-reg").value
         var email = document.getElementById("email-reg").value
         var password = document.getElementById("pass-reg").value
-        signUp(email, password)
+        signUp(name, email, password)
       })
       
       document.getElementById("signinq-btn").addEventListener("click", () => {
@@ -107,15 +108,15 @@ menuBtn.addEventListener("click", function () {
     })
     setTimeout(() => {
       document.addEventListener("click", (e) => {
-        if(e.target.closest('#menu')) {
+        if(e.target.closest('#login-register-popup')) {
           e.stopPropagation();
           return;
         }
-        menuPopup.style.display = "none";
+        loginRegisterPopup.style.display = "none";
       })
     }, 500)
   } else {
-    menuPopup.style.display = "none";
+    loginRegisterPopup.style.display = "none";
   }
 });
 
@@ -124,6 +125,7 @@ function logIn(email, password) {
   .then((userCredential) => {
     const user = userCredential.user
     localStorage.setItem("user", user.uid)
+    localStorage.setItem("username", user.name)
   })
   .catch((error) => {
     const errorCode = error.errorCode
@@ -132,11 +134,15 @@ function logIn(email, password) {
   })
 }
 
-function signUp(email, password) {
+function signUp(name, email, password) {
   createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user
     localStorage.setItem("user", user.uid)
+    set(ref(db, `users/${user.uid}`), {
+      username: name
+    })
+    logIn(email, password)
   })
   .catch((error) => {
     console.log(error)
