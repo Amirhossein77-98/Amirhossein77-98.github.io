@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"
-import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
+import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -20,6 +20,7 @@ const db = getDatabase()
 
 
 const itemsSecEl = document.getElementById("items-sec")
+const doneItemsEl = document.getElementById("done-items")
 const addBtnEl = document.getElementById("add")
 const todayBtnEl = document.getElementById("today")
 const shoppingBtnEl = document.getElementById("shop")
@@ -195,6 +196,7 @@ function saveTodo(title, desc, tags) {
     status: "undone"
   })
 
+  getAndAppendTodosInHtml()
 }
 
 function getTodos() {
@@ -212,32 +214,49 @@ function getTodos() {
       })
     })
 
-    return todos;
+    return todos
 
-  });
+  })
 
 }
 
-getTodos().then(todos => {
-
-  let html = ''
-
-  todos.forEach(todo => {
-    html += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
-              <label class="check-box">
-                  <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "-")}">
-                  <span></span>
-                  ${todo.id}
-              </label>
-              ${todo.description}
-          </span>`
+function getAndAppendTodosInHtml() {
+  getTodos().then(todos => {
+  
+    let undoneHtml = ''
+    let doneHtml = ''
+  
+    todos.forEach(todo => {
+      if (todo.status === "undone") {
+        undoneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
+                  <label class="check-box">
+                      <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}">
+                      <span></span>
+                      ${todo.id}
+                  </label>
+                  ${todo.desc}
+              </span>`
+      } else {
+        doneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
+                  <label class="check-box">
+                      <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}" checked>
+                      <span></span>
+                      ${todo.id}
+                  </label>
+                  ${todo.desc}
+              </span>`
+      }
+    })
+  
+    itemsSecEl.innerHTML = undoneHtml
+    doneItemsEl.innerHTML = doneHtml
+  
+    attachCheckListeners()
+  
   })
+}
 
-  itemsSecEl.innerHTML = html
-
-  attachCheckListeners()
-
-})
+getAndAppendTodosInHtml()
 
 function attachCheckListeners() {
   const checkboxes = document.querySelectorAll('.items-checkbox')
@@ -246,15 +265,22 @@ function attachCheckListeners() {
   checkboxes.forEach(box => {
     box.addEventListener('change', (event) => {
       if (event.target.checked) {
-        console.log("Checked")
-        console.log(box.value)
-        const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos`)
+        const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos/${box.id.replace(/%10/g, " ")}`)
         const todoItem = event.target.closest('.todo-item')
         doneItemsEl.appendChild(todoItem)
         event.target.checked = true
         
-        set(userTodosRef, {
+        update(userTodosRef, {
           status: "done"
+        })
+        attachCheckListeners()
+      } else if (!event.target.checked) {
+        const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos/${box.id.replace(/%10/g, " ")}`)
+        const todoItem = event.target.closest('.todo-item')
+        itemsSecEl.appendChild(todoItem)
+        event.target.checked = false
+        update(userTodosRef, {
+          status: "undone"
         })
       }
     })
