@@ -18,277 +18,306 @@ initializeApp(firebaseConfig);
 const auth = getAuth()
 const db = getDatabase()
 
+document.addEventListener("DOMContentLoaded", function() {
 
-const itemsSecEl = document.getElementById("items-sec")
-const doneItemsEl = document.getElementById("done-items")
-const addBtnEl = document.getElementById("add")
-const todayBtnEl = document.getElementById("today")
-const shoppingBtnEl = document.getElementById("shop")
-const ideasBtnEl = document.getElementById("ideas")
+  const itemsSecEl = document.getElementById("items-sec")
+  const doneItemsEl = document.getElementById("done-items")
+  const addBtnEl = document.getElementById("add")
+  const todayBtnEl = document.getElementById("today")
+  const shoppingBtnEl = document.getElementById("shop")
+  const ideasBtnEl = document.getElementById("ideas")
+  
+  
+  function leftPanelItemsIconChange() {
+      addBtnEl.innerHTML = "<ion-icon name='add-circle-outline'></ion-icon>"
+      addBtnEl.style.justifyContent = "center"
+  
+      todayBtnEl.innerHTML = "<ion-icon name='today-outline'></ion-icon>"
+      todayBtnEl.style.justifyContent = "center"
+  
+      shoppingBtnEl.innerHTML = "<ion-icon name='cart-outline'></ion-icon>"
+      shoppingBtnEl.style.justifyContent = "center"
+  
+      ideasBtnEl.innerHTML = "<ion-icon name='flash-outline'></ion-icon>"
+      ideasBtnEl.style.justifyContent = "center"
+  }
+  
+  if (window.innerWidth < 650) {
+      leftPanelItemsIconChange()
+  }
+  
+  window.addEventListener("resize", ()=> {
+      if (window.innerWidth < 600) {
+          leftPanelItemsIconChange()
+      } else {
+          addBtnEl.innerHTML = "<ion-icon name='add-circle-outline'></ion-icon>Add"
+          addBtnEl.removeAttribute("style")
+  
+          todayBtnEl.innerHTML = "<ion-icon name='today-outline'></ion-icon>Today"
+          todayBtnEl.removeAttribute("style")
+  
+          shoppingBtnEl.innerHTML = "<ion-icon name='cart-outline'></ion-icon>shopping List"
+          shoppingBtnEl.removeAttribute("style")
+          
+          ideasBtnEl.innerHTML = "<ion-icon name='flash-outline'></ion-icon>Ideas"
+          ideasBtnEl.removeAttribute("style")
+      }
+  })
+  
+  const userBtn = document.getElementById("user-sec")
+  const loginRegisterPopup = document.getElementById("login-register-popup")
+  loginRegisterPopup.style.display = "none"
+  
+  if (localStorage.getItem("userId")) {
+    userBtn.innerText = `${localStorage.getItem("username")}'s Todo List`
+  }
 
-
-function leftPanelItemsIconChange() {
-    addBtnEl.innerHTML = "<ion-icon name='add-circle-outline'></ion-icon>"
-    addBtnEl.style.justifyContent = "center"
-
-    todayBtnEl.innerHTML = "<ion-icon name='today-outline'></ion-icon>"
-    todayBtnEl.style.justifyContent = "center"
-
-    shoppingBtnEl.innerHTML = "<ion-icon name='cart-outline'></ion-icon>"
-    shoppingBtnEl.style.justifyContent = "center"
-
-    ideasBtnEl.innerHTML = "<ion-icon name='flash-outline'></ion-icon>"
-    ideasBtnEl.style.justifyContent = "center"
-}
-
-if (window.innerWidth < 650) {
-    leftPanelItemsIconChange()
-}
-
-window.addEventListener("resize", ()=> {
-    if (window.innerWidth < 600) {
-        leftPanelItemsIconChange()
-    } else {
-        addBtnEl.innerHTML = "<ion-icon name='add-circle-outline'></ion-icon>Add"
-        addBtnEl.removeAttribute("style")
-
-        todayBtnEl.innerHTML = "<ion-icon name='today-outline'></ion-icon>Today"
-        todayBtnEl.removeAttribute("style")
-
-        shoppingBtnEl.innerHTML = "<ion-icon name='cart-outline'></ion-icon>shopping List"
-        shoppingBtnEl.removeAttribute("style")
+  // Add an event listener to the button
+  userBtn.addEventListener("click", function () {
+    // Toggle the popup display
+    if (loginRegisterPopup.style.display === "none") {
+      if (localStorage.getItem("userId")) {
+        loggedInUserSecStyling()
+      } else {
+        fetch("../../modules/signinup/signinup.html")
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById("login-register-popup").innerHTML = html
+            document.querySelector("#signupModal").style.display = "none"
+            document.querySelector("form").style.width = "78%"
+            loginRegisterPopup.style.display = "flex"
         
-        ideasBtnEl.innerHTML = "<ion-icon name='flash-outline'></ion-icon>Ideas"
-        ideasBtnEl.removeAttribute("style")
+            document.getElementById("signin-form").addEventListener("submit", (e) => {
+              e.preventDefault()
+              var email = document.getElementById("email-login").value
+              var password = document.getElementById("password-login").value
+              logIn(email, password)
+            })
+        
+            document.getElementById("signupq-btn").addEventListener("click", () => {
+              document.querySelector("#loginModal").style.display = "none"
+              document.querySelector("#signupModal").style.display = "flex"
+        
+              document.getElementById("signup-form").addEventListener("submit", (e) => {
+                e.preventDefault()
+                var name = document.getElementById("name-reg").value
+                var email = document.getElementById("email-reg").value
+                var password = document.getElementById("pass-reg").value
+                signUp(name, email, password)
+              })
+              
+              document.getElementById("signinq-btn").addEventListener("click", () => {
+                document.querySelector("#loginModal").style.display = "flex"
+                document.querySelector("#signupModal").style.display = "none"
+                })
+              })
+          })
+          setTimeout(() => {
+            document.addEventListener("click", (e) => {
+              if(e.target.closest('#login-register-popup')) {
+                e.stopPropagation();
+                return;
+              }
+              loginRegisterPopup.style.display = "none"
+            })
+          }, 500)
+      }} else {
+      loginRegisterPopup.style.display = "none"
     }
-})
-
-const userBtn = document.getElementById("user-sec")
-const loginRegisterPopup = document.getElementById("login-register-popup")
-
-
-loginRegisterPopup.style.display = "none";
-
-// Add an event listener to the button
-userBtn.addEventListener("click", function () {
-  // Toggle the popup display
-  if (loginRegisterPopup.style.display === "none") {
-    fetch("../../modules/signinup/signinup.html")
-      .then(response => response.text())
-      .then(html => {
-    document.getElementById("login-register-popup").innerHTML = html
-    document.querySelector("#signupModal").style.display = "none"
-    document.querySelector("form").style.width = "78%"
-    loginRegisterPopup.style.display = "flex";
-
-    document.getElementById("signin-form").addEventListener("submit", (e) => {
-      e.preventDefault()
-      var email = document.getElementById("email-login").value
-      var password = document.getElementById("password-login").value
+  })
+  
+  function loggedInUserSecStyling() {
+    loginRegisterPopup.style.display = "flex"
+    loginRegisterPopup.style.width = "200px"
+    loginRegisterPopup.style.height = "200px"
+    loginRegisterPopup.style.left = "45.8%"
+    userBtn.textContent = `${localStorage.getItem("username")}'s Todo List`
+    loginRegisterPopup.innerHTML = `
+    <div>Hello ${localStorage.getItem("username")}</div>
+    <button id="logout-btn">Logout</button>`
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      localStorage.removeItem("username")
+      localStorage.removeItem("userId")
+      location.reload()
+    })
+  }
+  
+  function logIn(email, password) {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        localStorage.setItem("userId", user.uid)
+        let userRef = ref(db, `users/${user.uid}`)
+        return get(userRef)
+      })
+      .then((snapshot) => {
+        const username = snapshot.val().username
+        localStorage.setItem("username", username)
+      })
+      .then(() => {
+        loggedInUserSecStyling()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  
+  function signUp(name, email, password) {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user
+      localStorage.setItem("userId", user.uid)
+      set(ref(db, `users/${user.uid}`), {
+        username: name
+      })
       logIn(email, password)
     })
-
-    document.getElementById("signupq-btn").addEventListener("click", () => {
-      document.querySelector("#loginModal").style.display = "none"
-      document.querySelector("#signupModal").style.display = "flex"
-
-      document.getElementById("signup-form").addEventListener("submit", (e) => {
-        e.preventDefault()
-        var name = document.getElementById("name-reg").value
-        var email = document.getElementById("email-reg").value
-        var password = document.getElementById("pass-reg").value
-        signUp(name, email, password)
-      })
-      
-      document.getElementById("signinq-btn").addEventListener("click", () => {
-        document.querySelector("#loginModal").style.display = "flex"
-        document.querySelector("#signupModal").style.display = "none"
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+  
+  const addPopup = document.getElementById("add-popup")
+  addPopup.style.display = "none"
+  
+  addBtnEl.addEventListener("click", () => {
+    if (addPopup.style.display === "none") {
+      addPopup.style.display = "flex"
+    } else {
+      addPopup.style.display = "none"
+    }
+  })
+  
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#add-popup") && e.target !== addBtnEl) {
+      addPopup.style.display = "none"
+    }
+  })
+  
+  const todayCheckbox = document.getElementById("today-checkbox")
+  const shoppingCheckbox = document.getElementById("shopping-checkbox")
+  const ideasCheckbox = document.getElementById("ideas-checkbox")
+  
+  document.getElementById("add-form").addEventListener("submit", (e) => {
+    e.preventDefault()
+    const title = document.getElementById("todo-title-input").value
+    const description = document.getElementById("todo-desc-input").value
+  
+    let tags = []
+  
+    if (todayCheckbox.checked) {
+      tags.push("today")
+    }
+    if (shoppingCheckbox.checked) {
+      tags.push("shopping")
+    }
+    if (ideasCheckbox.checked) {
+      tags.push("ideas")
+    }
+  
+    saveTodo(title, description, tags)
+  })
+  
+  function saveTodo(title, desc, tags) {
+  
+    if (localStorage.getItem("user")) {
+      var userTodoRef = ref(db, `users/${localStorage.getItem("user")}/todos/${title}`)
+    }
+  
+    set(userTodoRef, {
+      desc,
+      tags,
+      status: "undone"
+    })
+  
+    getAndAppendTodosInHtml()
+  }
+  
+  function getTodos() {
+  
+    const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos`)
+  
+    return get(userTodosRef).then(snapshot => {
+  
+      let todos = []
+  
+      snapshot.forEach(childSnapshot => {
+        todos.push({
+          id: childSnapshot.key,  
+          ...childSnapshot.val()
         })
       })
+  
+      return todos
+  
     })
-    setTimeout(() => {
-      document.addEventListener("click", (e) => {
-        if(e.target.closest('#login-register-popup')) {
-          e.stopPropagation();
-          return;
+  
+  }
+  
+  function getAndAppendTodosInHtml() {
+    getTodos().then(todos => {
+    
+      let undoneHtml = ''
+      let doneHtml = ''
+    
+      todos.forEach(todo => {
+        if (todo.status === "undone") {
+          undoneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
+                    <label class="check-box">
+                        <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}">
+                        <span></span>
+                        ${todo.id}
+                    </label>
+                    ${todo.desc}
+                </span>`
+        } else {
+          doneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
+                    <label class="check-box">
+                        <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}" checked>
+                        <span></span>
+                        ${todo.id}
+                    </label>
+                    ${todo.desc}
+                </span>`
         }
-        loginRegisterPopup.style.display = "none";
       })
-    }, 500)
-  } else {
-    loginRegisterPopup.style.display = "none";
-  }
-});
-
-function logIn(email, password) {
-  signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user
-    localStorage.setItem("user", user.uid)
-    localStorage.setItem("username", user.name)
-  })
-  .catch((error) => {
-    const errorCode = error.errorCode
-    const errorMessage = error.errorMessage
-    console.log(errorMessage)
-  })
-}
-
-function signUp(name, email, password) {
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user
-    localStorage.setItem("user", user.uid)
-    set(ref(db, `users/${user.uid}`), {
-      username: name
+    
+      itemsSecEl.innerHTML = undoneHtml
+      doneItemsEl.innerHTML = doneHtml
+    
+      attachCheckListeners()
+    
     })
-    logIn(email, password)
-  })
-  .catch((error) => {
-    console.log(error)
-  })
-}
-
-const addPopup = document.getElementById("add-popup")
-addPopup.style.display = "none"
-
-addBtnEl.addEventListener("click", () => {
-  if (addPopup.style.display === "none") {
-    addPopup.style.display = "flex"
-  } else {
-    addPopup.style.display = "none"
   }
-})
-
-document.addEventListener("click", (e) => {
-  if (!e.target.closest("#add-popup") && e.target !== addBtnEl) {
-    addPopup.style.display = "none"
-  }
-})
-
-const todayCheckbox = document.getElementById("today-checkbox")
-const shoppingCheckbox = document.getElementById("shopping-checkbox")
-const ideasCheckbox = document.getElementById("ideas-checkbox")
-
-document.getElementById("add-form").addEventListener("submit", (e) => {
-  e.preventDefault()
-  const title = document.getElementById("todo-title-input").value
-  const description = document.getElementById("todo-desc-input").value
-
-  let tags = []
-
-  if (todayCheckbox.checked) {
-    tags.push("today")
-  }
-  if (shoppingCheckbox.checked) {
-    tags.push("shopping")
-  }
-  if (ideasCheckbox.checked) {
-    tags.push("ideas")
-  }
-
-  saveTodo(title, description, tags)
-})
-
-function saveTodo(title, desc, tags) {
-
-  if (localStorage.getItem("user")) {
-    var userTodoRef = ref(db, `users/${localStorage.getItem("user")}/todos/${title}`)
-  }
-
-  set(userTodoRef, {
-    desc,
-    tags,
-    status: "undone"
-  })
-
+  
   getAndAppendTodosInHtml()
-}
-
-function getTodos() {
-
-  const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos`)
-
-  return get(userTodosRef).then(snapshot => {
-
-    let todos = []
-
-    snapshot.forEach(childSnapshot => {
-      todos.push({
-        id: childSnapshot.key,  
-        ...childSnapshot.val()
+  
+  function attachCheckListeners() {
+    const checkboxes = document.querySelectorAll('.items-checkbox')
+    const doneItemsEl = document.getElementById('done-items')
+  
+    checkboxes.forEach(box => {
+      box.addEventListener('change', (event) => {
+        if (event.target.checked) {
+          const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos/${box.id.replace(/%10/g, " ")}`)
+          const todoItem = event.target.closest('.todo-item')
+          doneItemsEl.appendChild(todoItem)
+          event.target.checked = true
+          
+          update(userTodosRef, {
+            status: "done"
+          })
+          attachCheckListeners()
+        } else if (!event.target.checked) {
+          const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos/${box.id.replace(/%10/g, " ")}`)
+          const todoItem = event.target.closest('.todo-item')
+          itemsSecEl.appendChild(todoItem)
+          event.target.checked = false
+          update(userTodosRef, {
+            status: "undone"
+          })
+        }
       })
     })
-
-    return todos
-
-  })
-
-}
-
-function getAndAppendTodosInHtml() {
-  getTodos().then(todos => {
-  
-    let undoneHtml = ''
-    let doneHtml = ''
-  
-    todos.forEach(todo => {
-      if (todo.status === "undone") {
-        undoneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
-                  <label class="check-box">
-                      <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}">
-                      <span></span>
-                      ${todo.id}
-                  </label>
-                  ${todo.desc}
-              </span>`
-      } else {
-        doneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
-                  <label class="check-box">
-                      <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}" checked>
-                      <span></span>
-                      ${todo.id}
-                  </label>
-                  ${todo.desc}
-              </span>`
-      }
-    })
-  
-    itemsSecEl.innerHTML = undoneHtml
-    doneItemsEl.innerHTML = doneHtml
-  
-    attachCheckListeners()
-  
-  })
-}
-
-getAndAppendTodosInHtml()
-
-function attachCheckListeners() {
-  const checkboxes = document.querySelectorAll('.items-checkbox')
-  const doneItemsEl = document.getElementById('done-items')
-
-  checkboxes.forEach(box => {
-    box.addEventListener('change', (event) => {
-      if (event.target.checked) {
-        const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos/${box.id.replace(/%10/g, " ")}`)
-        const todoItem = event.target.closest('.todo-item')
-        doneItemsEl.appendChild(todoItem)
-        event.target.checked = true
-        
-        update(userTodosRef, {
-          status: "done"
-        })
-        attachCheckListeners()
-      } else if (!event.target.checked) {
-        const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos/${box.id.replace(/%10/g, " ")}`)
-        const todoItem = event.target.closest('.todo-item')
-        itemsSecEl.appendChild(todoItem)
-        event.target.checked = false
-        update(userTodosRef, {
-          status: "undone"
-        })
-      }
-    })
-  })
-}
+  }
+})

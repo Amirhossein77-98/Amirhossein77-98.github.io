@@ -39,6 +39,9 @@ body {
 #login-register-popup {
     display: none;
     position:fixed;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     z-index: 1000;
     background-color: #184539f7;
     width: 400px;
