@@ -218,7 +218,7 @@ document.getElementById("add-form").addEventListener("submit", (e) => {
 
 function saveTodo(title, desc, tags) {
 
-  if (localStorage.getItem("user")) {
+  if (localStorage.getItem("userId")) {
     var userTodoRef = ref(db, `users/${localStorage.getItem("userId")}/todos/${title}`)
   }
 
@@ -260,7 +260,7 @@ function getAndAppendTodosInHtml() {
   
     todos.forEach(todo => {
       if (todo.status === "undone") {
-        undoneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
+        undoneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole" data-tags="${todo.tags}">
                   <label class="check-box">
                       <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}">
                       <span></span>
@@ -269,7 +269,7 @@ function getAndAppendTodosInHtml() {
                   ${todo.desc}
               </span>`
       } else {
-        doneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole">
+        doneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole" data-tags="${todo.tags}">
                   <label class="check-box">
                       <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}" checked>
                       <span></span>
@@ -297,7 +297,7 @@ function attachCheckListeners() {
   checkboxes.forEach(box => {
     box.addEventListener('change', (event) => {
       if (event.target.checked) {
-        const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos/${box.id.replace(/%10/g, " ")}`)
+        const userTodosRef = ref(db, `users/${localStorage.getItem("userId")}/todos/${box.id.replace(/%10/g, " ")}`)
         const todoItem = event.target.closest('.todo-item')
         doneItemsEl.appendChild(todoItem)
         event.target.checked = true
@@ -307,7 +307,7 @@ function attachCheckListeners() {
         })
         attachCheckListeners()
       } else if (!event.target.checked) {
-        const userTodosRef = ref(db, `users/${localStorage.getItem("user")}/todos/${box.id.replace(/%10/g, " ")}`)
+        const userTodosRef = ref(db, `users/${localStorage.getItem("userId")}/todos/${box.id.replace(/%10/g, " ")}`)
         const todoItem = event.target.closest('.todo-item')
         itemsSecEl.appendChild(todoItem)
         event.target.checked = false
@@ -319,18 +319,48 @@ function attachCheckListeners() {
   })
 }
 
-// const todayTag = document.getElementById("today")
-// const shoppingTag = document.getElementById("shop")
-// const ideasTag = document.getElementById("ideas")
+const todayTag = document.getElementById("today")
+const shoppingTag = document.getElementById("shop")
+const ideasTag = document.getElementById("ideas")
 
-// todayTag.addEventListener("click", () => {
+function filterItems(tag, section) {
 
-// })
+  const itemsArray = Array.from(section)
 
-// shoppingTag.addEventListener("click", () => {
+  const filteredItems = itemsArray.filter(item => {
+    return item.dataset.tags.includes(tag)
+  })
 
-// })
+  return filteredItems
 
-// ideasTag.addEventListener("click", () => {
+}
 
-// })
+todayTag.addEventListener("click", () => {
+
+  const tag = "today"
+  
+  // Get undone and done items arrays
+  const undoneItems = Array.from(itemsSecEl.children)
+  const doneItems = Array.from(doneItemsEl.children)
+
+  // Filter both arrays
+  const filteredUndone = filterItems(tag, undoneItems)
+  const filteredDone = filterItems(tag, doneItems)
+
+  // Clear and update DOM
+  itemsSecEl.innerHTML = ""
+  doneItemsEl.innerHTML = ""
+
+  filteredUndone.forEach(item => itemsSecEl.appendChild(item))
+  filteredDone.forEach(item => doneItemsEl.appendChild(item))
+  
+})
+
+
+shoppingTag.addEventListener("click", () => {
+  const tag = "shopping"
+})
+
+ideasTag.addEventListener("click", () => {
+  const tag = "ideas"
+})
