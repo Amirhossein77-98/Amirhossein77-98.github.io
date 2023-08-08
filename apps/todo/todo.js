@@ -252,6 +252,9 @@ function getTodos() {
 
 }
 
+let allDoneItems = []
+let allUndoneItems = []
+
 function getAndAppendTodosInHtml() {
   getTodos().then(todos => {
   
@@ -260,7 +263,7 @@ function getAndAppendTodosInHtml() {
   
     todos.forEach(todo => {
       if (todo.status === "undone") {
-        undoneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole" data-tags="${todo.tags}">
+        let todoHtml = `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole" data-tags="${todo.status + "," + todo.tags}">
                   <label class="check-box">
                       <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}">
                       <span></span>
@@ -268,8 +271,10 @@ function getAndAppendTodosInHtml() {
                   </label>
                   ${todo.desc}
               </span>`
+        allUndoneItems.push(todoHtml)
+        undoneHtml += todoHtml
       } else {
-        doneHtml += `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole" data-tags="${todo.tags}">
+        let todoHtml = `<span class="todo-item" id="${todo.id.replace(/\s/g, "-")}-hole" data-tags="${todo.status + "," + todo.tags}">
                   <label class="check-box">
                       <input type="checkbox" class="items-checkbox" id="${todo.id.replace(/\s/g, "%10")}" checked>
                       <span></span>
@@ -277,6 +282,8 @@ function getAndAppendTodosInHtml() {
                   </label>
                   ${todo.desc}
               </span>`
+        allDoneItems.push(todoHtml)
+        doneHtml += todoHtml
       }
     })
   
@@ -328,7 +335,11 @@ function filterItems(tag, section) {
   const itemsArray = Array.from(section)
 
   const filteredItems = itemsArray.filter(item => {
-    return item.dataset.tags.includes(tag)
+    const tempElement = document.createElement('div')
+    tempElement.innerHTML = item;
+    const itemElement = tempElement.firstChild
+    
+    return itemElement.dataset.tags.includes(tag)
   })
 
   return filteredItems
@@ -340,8 +351,8 @@ todayTag.addEventListener("click", () => {
   const tag = "today"
   
   // Get undone and done items arrays
-  const undoneItems = Array.from(itemsSecEl.children)
-  const doneItems = Array.from(doneItemsEl.children)
+  const undoneItems = allUndoneItems
+  const doneItems = allDoneItems
 
   // Filter both arrays
   const filteredUndone = filterItems(tag, undoneItems)
@@ -351,16 +362,52 @@ todayTag.addEventListener("click", () => {
   itemsSecEl.innerHTML = ""
   doneItemsEl.innerHTML = ""
 
-  filteredUndone.forEach(item => itemsSecEl.appendChild(item))
-  filteredDone.forEach(item => doneItemsEl.appendChild(item))
+  filteredDone.forEach(item => {
+    doneItemsEl.innerHTML += item
+  })
+  filteredUndone.forEach(item => {
+    itemsSecEl.innerHTML += item
+  })
   
 })
 
 
 shoppingTag.addEventListener("click", () => {
   const tag = "shopping"
+
+  const undoneItems = allUndoneItems
+  const doneItems = allDoneItems
+
+  const filteredUndone = filterItems(tag, undoneItems)
+  const filteredDone = filterItems(tag, doneItems)
+
+  itemsSecEl.innerHTML = ""
+  doneItemsEl.innerHTML = ""
+
+  filteredDone.forEach(item => {
+    doneItemsEl.innerHTML += item
+  })
+  filteredUndone.forEach(item => {
+    itemsSecEl.innerHTML += item
+  })
 })
 
 ideasTag.addEventListener("click", () => {
   const tag = "ideas"
+  
+  const undoneItems = allUndoneItems
+  const doneItems = allDoneItems
+
+  const filteredUndone = filterItems(tag, undoneItems)
+  const filteredDone = filterItems(tag, doneItems)
+
+  itemsSecEl.innerHTML = ""
+  doneItemsEl.innerHTML = ""
+
+  filteredDone.forEach(item => {
+    doneItemsEl.innerHTML += item
+  })
+  filteredUndone.forEach(item => {
+    itemsSecEl.innerHTML += item
+  })
 })
