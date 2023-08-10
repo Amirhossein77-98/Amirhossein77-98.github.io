@@ -187,6 +187,7 @@ function logIn(email, password) {
     .then(() => {
       userLoginState = true
       loggedInUserSecStyling()
+      getAndAppendTodosInHtml()
     })
     .catch((error) => {
       console.log(error)
