@@ -308,16 +308,48 @@ function attachCheckListeners() {
         const todoItem = event.target.closest('.todo-item')
         doneItemsEl.appendChild(todoItem)
         event.target.checked = true
+
+        allUndoneItems.forEach((item, index) => {
+          const tempElement = document.createElement("div")
+          tempElement.innerHTML = item
+          const itemElement = tempElement.firstChild
+          if (itemElement.id === todoItem.id) {
+            console.log(itemElement)
+            let tagsArray = itemElement.dataset.tags.split(',')
+            tagsArray = tagsArray.map(t => t === 'undone' ? 'done' : t)
+            let tags = tagsArray.join(',')
+            itemElement.dataset.tags = tags
+            allDoneItems.push(item)
+            allUndoneItems.splice(index, 1)
+          }
+        })
         
         update(userTodosRef, {
           status: "done"
         })
         attachCheckListeners()
+        console.log(allDoneItems)
+        console.log(allUndoneItems)
       } else if (!event.target.checked) {
         const userTodosRef = ref(db, `users/${localStorage.getItem("userId")}/todos/${box.id.replace(/%10/g, " ")}`)
         const todoItem = event.target.closest('.todo-item')
         itemsSecEl.appendChild(todoItem)
         event.target.checked = false
+
+        allDoneItems.forEach((item, index) => {
+          const tempElement = document.createElement("div")
+          tempElement.innerHTML = item
+          const itemElement = tempElement.firstChild
+          if (itemElement.id === todoItem.id) {
+            let tagsArray = itemElement.dataset.tags.split(',')
+            tagsArray = tagsArray.map(t => t === 'done' ? 'undone' : t)
+            let tags = tagsArray.join(',')
+            itemElement.dataset.tags = tags
+            allUndoneItems.push(item)
+            allDoneItems.splice(index, 1)
+          }
+
+        })
         update(userTodosRef, {
           status: "undone"
         })
@@ -331,83 +363,54 @@ const shoppingTag = document.getElementById("shop")
 const ideasTag = document.getElementById("ideas")
 
 function filterItems(tag, section) {
-
   const itemsArray = Array.from(section)
 
   const filteredItems = itemsArray.filter(item => {
     const tempElement = document.createElement('div')
-    tempElement.innerHTML = item;
+    tempElement.innerHTML = item
     const itemElement = tempElement.firstChild
-    
+
     return itemElement.dataset.tags.includes(tag)
   })
 
   return filteredItems
+}
 
+function updateDOM(filteredDone, filteredUndone) {
+  itemsSecEl.innerHTML = ""
+  doneItemsEl.innerHTML = ""
+
+  filteredDone.forEach(item => {
+    doneItemsEl.innerHTML += item
+  })
+  filteredUndone.forEach(item => {
+    itemsSecEl.innerHTML += item
+  })
+
+  attachCheckListeners()
+}
+
+function handleClick(tag) {
+  const undoneItems = allUndoneItems
+  const doneItems = allDoneItems
+
+  const filteredUndone = filterItems(tag, undoneItems)
+  const filteredDone = filterItems(tag, doneItems)
+
+  updateDOM(filteredDone, filteredUndone)
 }
 
 todayTag.addEventListener("click", () => {
-
   const tag = "today"
-  
-  // Get undone and done items arrays
-  const undoneItems = allUndoneItems
-  const doneItems = allDoneItems
-
-  // Filter both arrays
-  const filteredUndone = filterItems(tag, undoneItems)
-  const filteredDone = filterItems(tag, doneItems)
-
-  // Clear and update DOM
-  itemsSecEl.innerHTML = ""
-  doneItemsEl.innerHTML = ""
-
-  filteredDone.forEach(item => {
-    doneItemsEl.innerHTML += item
-  })
-  filteredUndone.forEach(item => {
-    itemsSecEl.innerHTML += item
-  })
-  
+  handleClick(tag)
 })
-
 
 shoppingTag.addEventListener("click", () => {
   const tag = "shopping"
-
-  const undoneItems = allUndoneItems
-  const doneItems = allDoneItems
-
-  const filteredUndone = filterItems(tag, undoneItems)
-  const filteredDone = filterItems(tag, doneItems)
-
-  itemsSecEl.innerHTML = ""
-  doneItemsEl.innerHTML = ""
-
-  filteredDone.forEach(item => {
-    doneItemsEl.innerHTML += item
-  })
-  filteredUndone.forEach(item => {
-    itemsSecEl.innerHTML += item
-  })
+  handleClick(tag)
 })
 
 ideasTag.addEventListener("click", () => {
   const tag = "ideas"
-  
-  const undoneItems = allUndoneItems
-  const doneItems = allDoneItems
-
-  const filteredUndone = filterItems(tag, undoneItems)
-  const filteredDone = filterItems(tag, doneItems)
-
-  itemsSecEl.innerHTML = ""
-  doneItemsEl.innerHTML = ""
-
-  filteredDone.forEach(item => {
-    doneItemsEl.innerHTML += item
-  })
-  filteredUndone.forEach(item => {
-    itemsSecEl.innerHTML += item
-  })
+  handleClick(tag)
 })
