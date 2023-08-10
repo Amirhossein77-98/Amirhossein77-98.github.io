@@ -25,6 +25,11 @@ const todayBtnEl = document.getElementById("today")
 const shoppingBtnEl = document.getElementById("shop")
 const ideasBtnEl = document.getElementById("ideas")
 const allBtnEl = document.getElementById("all")
+const userBtn = document.getElementById("user-sec")
+const loginRegisterPopup = document.getElementById("login-register-popup")
+const addPopup = document.getElementById("add-popup")
+
+addPopup.style.width = window.innerWidth / 2 + "px"
 
 
 function leftPanelItemsIconChange() {
@@ -50,6 +55,8 @@ if (window.innerWidth < 650) {
 }
 
 window.addEventListener("resize", ()=> {
+    loginRegisterPopup.style.left = window.innerWidth / 2 - 90 + "px"
+    addPopup.style.width = window.innerWidth / 2 + "px"
     if (window.innerWidth < 600) {
         leftPanelItemsIconChange()
         document.getElementById("items-title").textContent = "Undone"
@@ -73,8 +80,6 @@ window.addEventListener("resize", ()=> {
     }
 })
 
-const userBtn = document.getElementById("user-sec")
-const loginRegisterPopup = document.getElementById("login-register-popup")
 loginRegisterPopup.style.display = "none"
 
 if (localStorage.getItem("userId")) {
@@ -139,7 +144,7 @@ function loggedInUserSecStyling() {
   loginRegisterPopup.style.display = "flex"
   loginRegisterPopup.style.width = "200px"
   loginRegisterPopup.style.height = "200px"
-  loginRegisterPopup.style.left = "45.8%"
+  loginRegisterPopup.style.left = window.innerWidth / 2 - 90 + "px"
   userBtn.textContent = `${localStorage.getItem("username")}'s Todo List`
   loginRegisterPopup.innerHTML = `
   <div>Hello ${localStorage.getItem("username")}</div>
@@ -186,7 +191,6 @@ function signUp(name, email, password) {
   })
 }
 
-const addPopup = document.getElementById("add-popup")
 addPopup.style.display = "none"
 
 addBtnEl.addEventListener("click", () => {
