@@ -24,6 +24,7 @@ const addBtnEl = document.getElementById("add")
 const todayBtnEl = document.getElementById("today")
 const shoppingBtnEl = document.getElementById("shop")
 const ideasBtnEl = document.getElementById("ideas")
+const allBtnEl = document.getElementById("all")
 
 
 function leftPanelItemsIconChange() {
@@ -38,15 +39,20 @@ function leftPanelItemsIconChange() {
 
     ideasBtnEl.innerHTML = "<ion-icon name='flash-outline'></ion-icon>"
     ideasBtnEl.style.justifyContent = "center"
+
+    allBtnEl.innerHTML = "<ion-icon name='apps-outline'></ion-icon>"
+    allBtnEl.style.justifyContent = "center"
 }
 
 if (window.innerWidth < 650) {
     leftPanelItemsIconChange()
+    document.getElementById("items-title").textContent = "Undone"
 }
 
 window.addEventListener("resize", ()=> {
     if (window.innerWidth < 600) {
         leftPanelItemsIconChange()
+        document.getElementById("items-title").textContent = "Undone"
     } else {
         addBtnEl.innerHTML = "<ion-icon name='add-circle-outline'></ion-icon>Add"
         addBtnEl.removeAttribute("style")
@@ -59,6 +65,11 @@ window.addEventListener("resize", ()=> {
         
         ideasBtnEl.innerHTML = "<ion-icon name='flash-outline'></ion-icon>Ideas"
         ideasBtnEl.removeAttribute("style")
+
+        allBtnEl.innerHTML = "<ion-icon name='apps-outline'></ion-icon>Ideas"
+        allBtnEl.removeAttribute("style")
+
+        document.getElementById("items-title").innerHTML = "<span>Title</span><span>Description</span>"
     }
 })
 
