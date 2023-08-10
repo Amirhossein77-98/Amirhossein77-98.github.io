@@ -250,4 +250,24 @@ form ul {
         font-size: 23px;
     }
 
+    .todo-item {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 0px;
+        width: 100%;
+        border-bottom: 1px rgb(67, 67, 67) solid;
+        font-size: 18px;
+    }
+
+    .item-description {
+        padding-left: 31px;
+        padding-top: 13px;
+        font-weight: lighter;
+        font-size: 15px;
+    }
+
+    .check-box {
+        width: 100%;
+    }
+
 }

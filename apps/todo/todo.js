@@ -280,7 +280,7 @@ function getAndAppendTodosInHtml() {
                       <span></span>
                       ${todo.id}
                   </label>
-                  ${todo.desc}
+                  <span class="item-description">${todo.desc}</span>
               </span>`
         allUndoneItems.push(todoHtml)
         undoneHtml += todoHtml
@@ -291,7 +291,7 @@ function getAndAppendTodosInHtml() {
                       <span></span>
                       ${todo.id}
                   </label>
-                  ${todo.desc}
+                  <span class="item-description">${todo.desc}</span>
               </span>`
         allDoneItems.push(todoHtml)
         doneHtml += todoHtml
