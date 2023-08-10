@@ -29,8 +29,17 @@ const userBtn = document.getElementById("user-sec")
 const loginRegisterPopup = document.getElementById("login-register-popup")
 const addPopup = document.getElementById("add-popup")
 
-addPopup.style.width = window.innerWidth / 2 + "px"
+var userLoginState = false
 
+if (localStorage.getItem("userId")) {
+  userLoginState = true
+  loginRegisterPopup.style.width = window.innerWidth - 100 + "px"
+} else {
+  loginRegisterPopup.style.left = window.innerWidth / 2 - 170 + "px"
+  loginRegisterPopup.style.width = window.innerWidth / 2 + 150 + "px"
+}
+
+addPopup.style.width = window.innerWidth / 2 + "px"
 
 function leftPanelItemsIconChange() {
     addBtnEl.innerHTML = "<ion-icon name='add-circle-outline'></ion-icon>"
@@ -55,28 +64,35 @@ if (window.innerWidth < 650) {
 }
 
 window.addEventListener("resize", ()=> {
+
+  addPopup.style.width = window.innerWidth / 2 + "px"
+
+  if (userLoginState) {
     loginRegisterPopup.style.left = window.innerWidth / 2 - 90 + "px"
-    addPopup.style.width = window.innerWidth / 2 + "px"
-    if (window.innerWidth < 600) {
-        leftPanelItemsIconChange()
-        document.getElementById("items-title").textContent = "Undone"
-    } else {
-        addBtnEl.innerHTML = "<ion-icon name='add-circle-outline'></ion-icon>Add"
-        addBtnEl.removeAttribute("style")
+  } else {
+    loginRegisterPopup.style.left = window.innerWidth / 2 - 170 + "px"
+    loginRegisterPopup.style.width = window.innerWidth / 2 + 150 + "px"
+  }
+  if (window.innerWidth < 600) {
+      leftPanelItemsIconChange()
+      document.getElementById("items-title").textContent = "Undone"
+  } else {
+      addBtnEl.innerHTML = "<ion-icon name='add-circle-outline'></ion-icon>Add"
+      addBtnEl.removeAttribute("style")
 
-        todayBtnEl.innerHTML = "<ion-icon name='today-outline'></ion-icon>Today"
-        todayBtnEl.removeAttribute("style")
+      todayBtnEl.innerHTML = "<ion-icon name='today-outline'></ion-icon>Today"
+      todayBtnEl.removeAttribute("style")
 
-        shoppingBtnEl.innerHTML = "<ion-icon name='cart-outline'></ion-icon>shopping List"
-        shoppingBtnEl.removeAttribute("style")
-        
-        ideasBtnEl.innerHTML = "<ion-icon name='flash-outline'></ion-icon>Ideas"
-        ideasBtnEl.removeAttribute("style")
+      shoppingBtnEl.innerHTML = "<ion-icon name='cart-outline'></ion-icon>shopping List"
+      shoppingBtnEl.removeAttribute("style")
+      
+      ideasBtnEl.innerHTML = "<ion-icon name='flash-outline'></ion-icon>Ideas"
+      ideasBtnEl.removeAttribute("style")
 
-        allBtnEl.innerHTML = "<ion-icon name='apps-outline'></ion-icon>Ideas"
-        allBtnEl.removeAttribute("style")
+      allBtnEl.innerHTML = "<ion-icon name='apps-outline'></ion-icon>Ideas"
+      allBtnEl.removeAttribute("style")
 
-        document.getElementById("items-title").innerHTML = "<span>Title</span><span>Description</span>"
+      document.getElementById("items-title").innerHTML = "<span>Title</span><span>Description</span>"
     }
 })
 
@@ -169,6 +185,7 @@ function logIn(email, password) {
       localStorage.setItem("username", username)
     })
     .then(() => {
+      userLoginState = true
       loggedInUserSecStyling()
     })
     .catch((error) => {
