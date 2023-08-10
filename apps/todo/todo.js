@@ -360,6 +360,7 @@ function attachCheckListeners() {
 const todayTag = document.getElementById("today")
 const shoppingTag = document.getElementById("shop")
 const ideasTag = document.getElementById("ideas")
+const allTag = document.getElementById("all")
 
 function filterItems(tag, section) {
   const itemsArray = Array.from(section)
@@ -420,4 +421,8 @@ shoppingTag.addEventListener("click", () => {
 ideasTag.addEventListener("click", () => {
   const tag = "ideas"
   handleClick(tag)
+})
+
+allTag.addEventListener("click", () => {
+  updateDOM(allDoneItems, allUndoneItems)
 })
