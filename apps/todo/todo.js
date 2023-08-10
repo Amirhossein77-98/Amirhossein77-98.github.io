@@ -314,7 +314,6 @@ function attachCheckListeners() {
           tempElement.innerHTML = item
           const itemElement = tempElement.firstChild
           if (itemElement.id === todoItem.id) {
-            console.log(itemElement)
             let tagsArray = itemElement.dataset.tags.split(',')
             tagsArray = tagsArray.map(t => t === 'undone' ? 'done' : t)
             let tags = tagsArray.join(',')
@@ -376,6 +375,13 @@ function filterItems(tag, section) {
   return filteredItems
 }
 
+function checkDoneItems() {
+  const checkboxes = doneItemsEl.querySelectorAll('.check-box input[type="checkbox"]')
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = true
+  })
+}
+
 function updateDOM(filteredDone, filteredUndone) {
   itemsSecEl.innerHTML = ""
   doneItemsEl.innerHTML = ""
@@ -387,6 +393,7 @@ function updateDOM(filteredDone, filteredUndone) {
     itemsSecEl.innerHTML += item
   })
 
+  checkDoneItems()
   attachCheckListeners()
 }
 
